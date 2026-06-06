@@ -7,9 +7,16 @@
 //    HTML page, mirroring that page's own <title> and meta description. Because
 //    the URLs are derived from the request host, every tag is correct on
 //    whatever domain serves the page — no rework when the custom domain lands.
-//  - Serves a host-based /sitemap.xml and /robots.txt.
+//  - Serves a host-based /sitemap.xml and /robots.txt covering every page,
+//    including the generated per-tactic and per-technique pages.
 
-const PAGES = ["/", "/tactics", "/techniques", "/detect", "/compliance", "/about"];
+import { TACTIC_IDS, TECHNIQUE_IDS } from "./_ids.js";
+
+const PAGES = [
+  "/", "/tactics", "/techniques", "/detect", "/compliance", "/about",
+  ...TACTIC_IDS.map((id) => `/tactic/${id}`),
+  ...TECHNIQUE_IDS.map((id) => `/technique/${id}`),
+];
 
 const decodeEntities = (s) =>
   String(s)

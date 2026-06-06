@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T11-AT-002 · Tool Chain Exploitation — AATMF</title>
+<meta name="description" content="Agentic frameworks (ReAct, AutoGPT, LangChain, MCP-connected assistants) expose a registry of tools — file I/O, shell, database, HTTP, code execution — that the model invokes by emittin">
+<link rel="icon" href="/favicon.svg">
+<link rel="stylesheet" href="/aatmf.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"T11-AT-002: Tool Chain Exploitation","name":"Tool Chain Exploitation","identifier":"T11-AT-002","description":"Agentic frameworks (ReAct, AutoGPT, LangChain, MCP-connected assistants) expose a registry of tools — file I/O, shell, database, HTTP, code execution — that the model invokes by emittin","keywords":"Tool Chain Exploitation, T11-AT-002, Agentic & Orchestrator Exploitation, LLM06, AML.T0051, adversarial AI, AATMF","isPartOf":{"@type":"CreativeWork","name":"AATMF — Adversarial AI Threat Modeling Framework","version":"3"},"author":{"@type":"Organization","name":"snailsploit"}}</script>
+</head>
+<body data-page="techniques">
+<header class="nav">
+  <div class="nav__in">
+    <a class="brand" href="/" aria-label="AATMF home">
+      <img class="brand__mark" src="/spiral-ox.svg" width="24" height="24" alt="">
+      <span class="brand__name">AATMF</span>
+      <span class="brand__by">by snailsploit</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="/">Overview</a>
+      <a href="/tactics">Tactics</a>
+      <a href="/techniques" aria-current="page">Techniques</a>
+      <a href="/detect">Detect &amp; Defend</a>
+      <a href="/compliance">Compliance</a>
+      <a href="/about">About</a>
+    </nav>
+    <div class="nav__right">
+      <span class="nav__ver"><span class="dot"></span> v3 · 2026</span>
+      <a class="btn btn--solid nav__cta" href="/techniques">Browse techniques <span class="arr">&rarr;</span></a>
+    </div>
+    <button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+<div class="mobile" aria-hidden="true">
+  <a href="/">Overview</a>
+  <a href="/tactics">Tactics</a>
+  <a href="/techniques">Techniques</a>
+  <a href="/detect">Detect &amp; Defend</a>
+  <a href="/compliance">Compliance</a>
+  <a href="/about">About</a>
+</div>
+<main class="tpage"><div class="wrap tpage__wrap"><nav class="crumb" aria-label="Breadcrumb"><a href="/techniques">Techniques</a> <span>/</span> <a href="/tactic/T11">T11 · Agentic &amp; Orchestrator Exploitation</a> <span>/</span> <span>T11-AT-002</span></nav><article class="dt dt--page"><div class="dt__top"><span class="dt__id">T11-AT-002</span><span class="rpill" data-r="CRITICAL">CRITICAL</span></div><h1 class="dt__title">Tool Chain Exploitation</h1><a class="dt__tac" href="/tactic/T11">T11 · Agentic &amp; Orchestrator Exploitation &rarr;</a><div class="dt__grid"><div class="dt__cell"><span class="dt__k">Risk score</span><span class="dt__v mono">255</span></div><div class="dt__cell"><span class="dt__k">Rating</span><span class="dt__v">Critical</span></div><div class="dt__cell"><span class="dt__k">Procedures</span><span class="dt__v mono">10</span></div><div class="dt__cell"><span class="dt__k">Severity</span><span class="sev sev--lg" data-r="CRITICAL" style="margin-top:2px"><i></i><i></i><i></i><i></i><i></i></span></div></div><div class="dt__sec"><span class="dt__k">Mechanism</span><p class="dt__body-text">Agentic frameworks (ReAct, AutoGPT, LangChain, MCP-connected assistants) expose a registry of tools — file I/O, shell, database, HTTP, code execution — that the model invokes by emitting structured calls. The core gap is excessive agency combined with no semantic gate on the *composition* of tools: each tool may be individually reasonable, but the model is free to chain them into a kill-chain (read secret → email it out) that no single permission check catches. Tool descriptions are themselves part of the prompt, so MCP tool poisoning (Invariant Labs reported 84.2% ASR on GPT-3.5-turbo) lets a malicious or rug-pulled tool inject instructions that steer the agent toward dangerous calls without ever being explicitly invoked.</p></div><div class="dt__sec"><span class="dt__k">Detection</span><ul class="dt__list"><li>Audit every tool call: tool name, arguments, invoking instruction source, and the observation returned</li><li>Detect sensitive *sequences* (read-secret → network-send, get-creds → use-creds) rather than only individual high-risk calls</li><li>Hash and pin approved MCP tool descriptions; alert on post-approval description changes (rug-pull detection)</li><li>Monitor for unbounded recursion / call-rate spikes and enforce per-task call budgets</li></ul></div><div class="dt__sec"><span class="dt__k">Mitigation</span><div class="dt__mitig"><div class="mitig"><span class="mitig__c">Per-task least-privilege tool scoping</span><span class="mitig__e" data-e="HIGH">HIGH</span></div><div class="mitig"><span class="mitig__c">Tool-description integrity pinning</span><span class="mitig__e" data-e="HIGH">HIGH</span></div><div class="mitig"><span class="mitig__c">Sequence-aware policy engine</span><span class="mitig__e" data-e="HIGH">HIGH</span></div><div class="mitig"><span class="mitig__c">Statement/path/host allowlists</span><span class="mitig__e" data-e="MEDIUM">MEDIUM</span></div></div></div><div class="dt__sec"><span class="dt__k">Chaining</span><p class="dt__body-text dt__body-text--dim">Tool-chain abuse is the execution layer beneath most other T11 techniques: T11-AP-002G feeds directly into <a class="dt__ref" href="/technique/T11-AT-008">T11-AT-008</a> (credential harvesting) and <a class="dt__ref" href="/technique/T11-AT-011">T11-AT-011</a> (exfiltration), T11-AP-002I bridges to <a class="dt__ref" href="/technique/T11-AT-013">T11-AT-013</a> (supply chain), and code execution (T11-AP-002F) enables <a class="dt__ref" href="/technique/T11-AT-009">T11-AT-009</a> persistence and <a class="dt__ref" href="/technique/T11-AT-015">T11-AT-015</a> replication. Entry is commonly via T1 prompt injection or T13 supply-chain MCP tool poisoning that ships a malicious tool description.</p></div><div class="dt__sec"><span class="dt__k">Framework mapping</span><div class="dt__map"><span class="dt__map-f">OWASP LLM</span><span class="mtag">LLM06</span></div><div class="dt__map"><span class="dt__map-f">MITRE ATLAS</span><span class="mtag">AML.T0051</span></div></div><a class="dt__browse" href="/techniques?tactic=T11">Open in the technique browser &rarr;</a></article><nav class="tnav" aria-label="Technique pagination"><a class="tnav__prev" href="/technique/T11-AT-001">&larr; T11-AT-001 · Browser Automation Hijacking</a><a class="tnav__next" href="/technique/T11-AT-003">T11-AT-003 · Goal Hijacking &rarr;</a></nav></div></main>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__about">
+        <a class="brand" href="/"><img class="brand__mark" src="/spiral-ox.svg" width="22" height="22" alt=""><span class="brand__name" style="font-size:18px;">AATMF</span></a>
+        <p>An open framework from snailsploit — a small, independent adversarial-AI research group. The people doing the work are the people on the byline.</p>
+      </div>
+      <div class="footer__col"><h4>Framework</h4><a href="/">Overview</a><a href="/tactics">The 15 tactics</a><a href="/techniques">Technique browser</a></div>
+      <div class="footer__col"><h4>Defense</h4><a href="/detect">Detect &amp; Defend</a><a href="/detect#signatures">Signatures</a><a href="/detect#ir">Incident response</a></div>
+      <div class="footer__col"><h4>Compliance</h4><a href="/compliance#owasp-llm">OWASP LLM Top 10</a><a href="/compliance#atlas">MITRE ATLAS</a><a href="/compliance#eu-ai-act">EU AI Act</a></div>
+      <div class="footer__col"><h4>About</h4><a href="/about">About AATMF</a><a href="/about#risk">Risk model</a><a href="/about#cite">Citation</a></div>
+    </div>
+    <div class="footer__bar"><span>© 2026 snailsploit · AATMF v3</span><span>Kai Aizen + Avraham Shemesh</span></div>
+  </div>
+</footer>
+<script src="/site.js"></script>
+</body>
+</html>

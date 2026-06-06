@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T15-AT-003 · Feedback Loop Manipulation — AATMF</title>
+<meta name="description" content="Modern alignment pipelines learn from human signals: thumbs up/down, preference comparisons, crowd ratings, and conversational corrections that flow back into reward models and fine-tun">
+<link rel="icon" href="/favicon.svg">
+<link rel="stylesheet" href="/aatmf.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"T15-AT-003: Feedback Loop Manipulation","name":"Feedback Loop Manipulation","identifier":"T15-AT-003","description":"Modern alignment pipelines learn from human signals: thumbs up/down, preference comparisons, crowd ratings, and conversational corrections that flow back into reward models and fine-tun","keywords":"Feedback Loop Manipulation, T15-AT-003, Human Workflow Exploitation, LLM04, AML.T0020, adversarial AI, AATMF","isPartOf":{"@type":"CreativeWork","name":"AATMF — Adversarial AI Threat Modeling Framework","version":"3"},"author":{"@type":"Organization","name":"snailsploit"}}</script>
+</head>
+<body data-page="techniques">
+<header class="nav">
+  <div class="nav__in">
+    <a class="brand" href="/" aria-label="AATMF home">
+      <img class="brand__mark" src="/spiral-ox.svg" width="24" height="24" alt="">
+      <span class="brand__name">AATMF</span>
+      <span class="brand__by">by snailsploit</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="/">Overview</a>
+      <a href="/tactics">Tactics</a>
+      <a href="/techniques" aria-current="page">Techniques</a>
+      <a href="/detect">Detect &amp; Defend</a>
+      <a href="/compliance">Compliance</a>
+      <a href="/about">About</a>
+    </nav>
+    <div class="nav__right">
+      <span class="nav__ver"><span class="dot"></span> v3 · 2026</span>
+      <a class="btn btn--solid nav__cta" href="/techniques">Browse techniques <span class="arr">&rarr;</span></a>
+    </div>
+    <button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+<div class="mobile" aria-hidden="true">
+  <a href="/">Overview</a>
+  <a href="/tactics">Tactics</a>
+  <a href="/techniques">Techniques</a>
+  <a href="/detect">Detect &amp; Defend</a>
+  <a href="/compliance">Compliance</a>
+  <a href="/about">About</a>
+</div>
+<main class="tpage"><div class="wrap tpage__wrap"><nav class="crumb" aria-label="Breadcrumb"><a href="/techniques">Techniques</a> <span>/</span> <a href="/tactic/T15">T15 · Human Workflow Exploitation</a> <span>/</span> <span>T15-AT-003</span></nav><article class="dt dt--page"><div class="dt__top"><span class="dt__id">T15-AT-003</span><span class="rpill" data-r="HIGH">HIGH</span></div><h1 class="dt__title">Feedback Loop Manipulation</h1><a class="dt__tac" href="/tactic/T15">T15 · Human Workflow Exploitation &rarr;</a><div class="dt__grid"><div class="dt__cell"><span class="dt__k">Risk score</span><span class="dt__v mono">240</span></div><div class="dt__cell"><span class="dt__k">Rating</span><span class="dt__v">High</span></div><div class="dt__cell"><span class="dt__k">Procedures</span><span class="dt__v mono">10</span></div><div class="dt__cell"><span class="dt__k">Severity</span><span class="sev sev--lg" data-r="HIGH" style="margin-top:2px"><i></i><i></i><i></i><i></i><i></i></span></div></div><div class="dt__sec"><span class="dt__k">Mechanism</span><p class="dt__body-text">Modern alignment pipelines learn from human signals: thumbs up/down, preference comparisons, crowd ratings, and conversational corrections that flow back into reward models and fine-tuning. Those signals are trusted as proxies for &quot;what good output looks like,&quot; but they are open collection surfaces with weak attribution — anyone with accounts or paid rater access can inject signal. Feedback Loop Manipulation poisons the *teacher* rather than the *student*: by coordinating votes, brigading, or recruiting lenient/bribed raters, an attacker shifts the aggregate human signal so the optimizer learns the attacker's preferred behavior (rewarding a harmful completion, punishing a safe refusal).</p></div><div class="dt__sec"><span class="dt__k">Detection</span><ul class="dt__list"><li>Vote/rating provenance graphing: Cluster feedback by account age, IP/device, and timing; sudden coordinated bursts on specific outputs indicate brigading or sock-puppet farms.</li><li>Rater-agreement drift: Track inter-rater agreement and per-rater strictness over time; a rater drifting permissive (or diverging from gold labels) flags lenient-targeting or compromise.</li><li>Gold/honeypot items in the feedback stream: Embed known-answer comparisons; raters or vote cohorts that systematically miss them are filtered before training.</li><li>Influence/anomaly analysis pre-training: Estimate the influence of recent feedback slices on the candidate reward model and quarantine high-influence, low-trust contributions.</li></ul></div><div class="dt__sec"><span class="dt__k">Mitigation</span><div class="dt__mitig"><div class="mitig"><span class="mitig__c">Trust-weighted feedback aggregation</span><span class="mitig__e" data-e="HIGH">HIGH</span></div><div class="mitig"><span class="mitig__c">Robust aggregation (trimmed/median, outlier removal)</span><span class="mitig__e" data-e="HIGH">HIGH</span></div><div class="mitig"><span class="mitig__c">Gold-standard rater monitoring</span><span class="mitig__e" data-e="HIGH">HIGH</span></div><div class="mitig"><span class="mitig__c">Sybil/coordination defenses on feedback intake</span><span class="mitig__e" data-e="MEDIUM">MEDIUM</span></div></div></div><div class="dt__sec"><span class="dt__k">Chaining</span><p class="dt__body-text dt__body-text--dim">This is the central node linking human-workflow attacks to T6 (RLHF/feedback poisoning) and T4 (data/model poisoning) — the human signal is the injection vector for both. Bribed/lenient raters (T15-AP-003D/T15-AP-003F) connect to <a class="dt__ref" href="/technique/T15-AT-004">T15-AT-004</a> (Bribery &amp; Coercion) and <a class="dt__ref" href="/technique/T15-AT-015">T15-AT-015</a> (Insider Recruitment); A/B gaming (T15-AP-003G) feeds <a class="dt__ref" href="/technique/T15-AT-014">T15-AT-014</a>; and edge-case reinforcement (T15-AP-003I) can install a behavior later triggered by T8 (deception) or T1 (prompt-injection) cues.</p></div><div class="dt__sec"><span class="dt__k">Framework mapping</span><div class="dt__map"><span class="dt__map-f">OWASP LLM</span><span class="mtag">LLM04</span></div><div class="dt__map"><span class="dt__map-f">MITRE ATLAS</span><span class="mtag">AML.T0020</span></div></div><a class="dt__browse" href="/techniques?tactic=T15">Open in the technique browser &rarr;</a></article><nav class="tnav" aria-label="Technique pagination"><a class="tnav__prev" href="/technique/T15-AT-002">&larr; T15-AT-002 · Social Engineering of Moderators</a><a class="tnav__next" href="/technique/T15-AT-004">T15-AT-004 · Reviewer Bribery &amp; Coercion &rarr;</a></nav></div></main>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__about">
+        <a class="brand" href="/"><img class="brand__mark" src="/spiral-ox.svg" width="22" height="22" alt=""><span class="brand__name" style="font-size:18px;">AATMF</span></a>
+        <p>An open framework from snailsploit — a small, independent adversarial-AI research group. The people doing the work are the people on the byline.</p>
+      </div>
+      <div class="footer__col"><h4>Framework</h4><a href="/">Overview</a><a href="/tactics">The 15 tactics</a><a href="/techniques">Technique browser</a></div>
+      <div class="footer__col"><h4>Defense</h4><a href="/detect">Detect &amp; Defend</a><a href="/detect#signatures">Signatures</a><a href="/detect#ir">Incident response</a></div>
+      <div class="footer__col"><h4>Compliance</h4><a href="/compliance#owasp-llm">OWASP LLM Top 10</a><a href="/compliance#atlas">MITRE ATLAS</a><a href="/compliance#eu-ai-act">EU AI Act</a></div>
+      <div class="footer__col"><h4>About</h4><a href="/about">About AATMF</a><a href="/about#risk">Risk model</a><a href="/about#cite">Citation</a></div>
+    </div>
+    <div class="footer__bar"><span>© 2026 snailsploit · AATMF v3</span><span>Kai Aizen + Avraham Shemesh</span></div>
+  </div>
+</footer>
+<script src="/site.js"></script>
+</body>
+</html>
