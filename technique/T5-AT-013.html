@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T5-AT-013 · Version Downgrade Attacks — AATMF</title>
+<meta name="description" content="LLM providers maintain multiple model versions simultaneously for backward compatibility. The design assumption is that version selection is a benign quality choice. The gap: older mode">
+<link rel="icon" href="/favicon.svg">
+<link rel="stylesheet" href="/aatmf.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"T5-AT-013: Version Downgrade Attacks","name":"Version Downgrade Attacks","identifier":"T5-AT-013","description":"LLM providers maintain multiple model versions simultaneously for backward compatibility. The design assumption is that version selection is a benign quality choice. The gap: older mode","keywords":"Version Downgrade Attacks, T5-AT-013, Model & API Exploitation, LLM02, AML.T0040, adversarial AI, AATMF","isPartOf":{"@type":"CreativeWork","name":"AATMF — Adversarial AI Threat Modeling Framework","version":"3"},"author":{"@type":"Organization","name":"snailsploit"}}</script>
+</head>
+<body data-page="techniques">
+<header class="nav">
+  <div class="nav__in">
+    <a class="brand" href="/" aria-label="AATMF home">
+      <img class="brand__mark" src="/spiral-ox.svg" width="24" height="24" alt="">
+      <span class="brand__name">AATMF</span>
+      <span class="brand__by">by snailsploit</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="/">Overview</a>
+      <a href="/tactics">Tactics</a>
+      <a href="/techniques" aria-current="page">Techniques</a>
+      <a href="/detect">Detect &amp; Defend</a>
+      <a href="/compliance">Compliance</a>
+      <a href="/about">About</a>
+    </nav>
+    <div class="nav__right">
+      <span class="nav__ver"><span class="dot"></span> v3 · 2026</span>
+      <a class="btn btn--solid nav__cta" href="/techniques">Browse techniques <span class="arr">&rarr;</span></a>
+    </div>
+    <button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+<div class="mobile" aria-hidden="true">
+  <a href="/">Overview</a>
+  <a href="/tactics">Tactics</a>
+  <a href="/techniques">Techniques</a>
+  <a href="/detect">Detect &amp; Defend</a>
+  <a href="/compliance">Compliance</a>
+  <a href="/about">About</a>
+</div>
+<main class="tpage"><div class="wrap tpage__wrap"><nav class="crumb" aria-label="Breadcrumb"><a href="/techniques">Techniques</a> <span>/</span> <a href="/tactic/T5">T5 · Model &amp; API Exploitation</a> <span>/</span> <span>T5-AT-013</span></nav><article class="dt dt--page"><div class="dt__top"><span class="dt__id">T5-AT-013</span><span class="rpill" data-r="MEDIUM">MEDIUM</span></div><h1 class="dt__title">Version Downgrade Attacks</h1><a class="dt__tac" href="/tactic/T5">T5 · Model &amp; API Exploitation &rarr;</a><div class="dt__grid"><div class="dt__cell"><span class="dt__k">Risk score</span><span class="dt__v mono">190</span></div><div class="dt__cell"><span class="dt__k">Rating</span><span class="dt__v">Medium</span></div><div class="dt__cell"><span class="dt__k">Procedures</span><span class="dt__v mono">1</span></div><div class="dt__cell"><span class="dt__k">Severity</span><span class="sev sev--lg" data-r="MEDIUM" style="margin-top:2px"><i></i><i></i><i></i><i></i><i></i></span></div></div><div class="dt__sec"><span class="dt__k">Mechanism</span><p class="dt__body-text">LLM providers maintain multiple model versions simultaneously for backward compatibility. The design assumption is that version selection is a benign quality choice. The gap: older model versions have weaker safety alignment.</p></div><div class="dt__sec"><span class="dt__k">Detection</span><ul class="dt__list"><li>Monitor model version selection in API requests — alert on requests explicitly targeting older versions</li><li>Track version distribution across requests per user — legitimate users typically use latest</li><li>Alert on self-hosted model file changes (checksum monitoring)</li><li>Log model version alongside safety classifier decisions for version-specific safety regression analysis</li></ul></div><div class="dt__sec"><span class="dt__k">Mitigation</span><div class="dt__mitig"><div class="mitig"><span class="mitig__c">Aggressive version deprecation (short support windows)</span><span class="mitig__e" data-e="HIGH">HIGH</span></div><div class="mitig"><span class="mitig__c">Backport safety patches to all supported versions</span><span class="mitig__e" data-e="MEDIUM">MEDIUM</span></div><div class="mitig"><span class="mitig__c">Per-version safety evaluation (continuous red-teaming of old versions)</span><span class="mitig__e" data-e="MEDIUM">MEDIUM</span></div><div class="mitig"><span class="mitig__c">Restrict version selection to admin-only API keys</span><span class="mitig__e" data-e="HIGH">HIGH</span></div></div></div><div class="dt__sec"><span class="dt__k">Chaining</span><p class="dt__body-text dt__body-text--dim">Version downgrade is a technique multiplier — any jailbreak that has been patched in the current version but was published against an older version becomes viable again via downgrade. Chains directly to T1 (Prompt Subversion), T2 (Semantic Evasion), and T3 (Reasoning Exploitation) using version-era-specific techniques.</p></div><div class="dt__sec"><span class="dt__k">Framework mapping</span><div class="dt__map"><span class="dt__map-f">OWASP LLM</span><span class="mtag">LLM02</span></div><div class="dt__map"><span class="dt__map-f">MITRE ATLAS</span><span class="mtag">AML.T0040</span></div></div><a class="dt__browse" href="/techniques?tactic=T5">Open in the technique browser &rarr;</a></article><nav class="tnav" aria-label="Technique pagination"><a class="tnav__prev" href="/technique/T5-AT-012">&larr; T5-AT-012 · Resource Exhaustion</a><a class="tnav__next" href="/technique/T5-AT-014">T5-AT-014 · Side Channel Attacks &rarr;</a></nav></div></main>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__about">
+        <a class="brand" href="/"><img class="brand__mark" src="/spiral-ox.svg" width="22" height="22" alt=""><span class="brand__name" style="font-size:18px;">AATMF</span></a>
+        <p>An open framework from snailsploit — a small, independent adversarial-AI research group. The people doing the work are the people on the byline.</p>
+      </div>
+      <div class="footer__col"><h4>Framework</h4><a href="/">Overview</a><a href="/tactics">The 15 tactics</a><a href="/techniques">Technique browser</a></div>
+      <div class="footer__col"><h4>Defense</h4><a href="/detect">Detect &amp; Defend</a><a href="/detect#signatures">Signatures</a><a href="/detect#ir">Incident response</a></div>
+      <div class="footer__col"><h4>Compliance</h4><a href="/compliance#owasp-llm">OWASP LLM Top 10</a><a href="/compliance#atlas">MITRE ATLAS</a><a href="/compliance#eu-ai-act">EU AI Act</a></div>
+      <div class="footer__col"><h4>About</h4><a href="/about">About AATMF</a><a href="/about#risk">Risk model</a><a href="/about#cite">Citation</a></div>
+    </div>
+    <div class="footer__bar"><span>© 2026 snailsploit · AATMF v3</span><span>Kai Aizen + Avraham Shemesh</span></div>
+  </div>
+</footer>
+<script src="/site.js"></script>
+</body>
+</html>

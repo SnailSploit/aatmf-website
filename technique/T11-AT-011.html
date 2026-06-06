@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T11-AT-011 · Data Exfiltration via Agent — AATMF</title>
+<meta name="description" content="Exfiltration is the payoff stage, and agents excel at it because they combine read access to sensitive data with a rich set of outbound channels — email, HTTP upload, cloud storage, pas">
+<link rel="icon" href="/favicon.svg">
+<link rel="stylesheet" href="/aatmf.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"T11-AT-011: Data Exfiltration via Agent","name":"Data Exfiltration via Agent","identifier":"T11-AT-011","description":"Exfiltration is the payoff stage, and agents excel at it because they combine read access to sensitive data with a rich set of outbound channels — email, HTTP upload, cloud storage, pas","keywords":"Data Exfiltration via Agent, T11-AT-011, Agentic & Orchestrator Exploitation, LLM02, adversarial AI, AATMF","isPartOf":{"@type":"CreativeWork","name":"AATMF — Adversarial AI Threat Modeling Framework","version":"3"},"author":{"@type":"Organization","name":"snailsploit"}}</script>
+</head>
+<body data-page="techniques">
+<header class="nav">
+  <div class="nav__in">
+    <a class="brand" href="/" aria-label="AATMF home">
+      <img class="brand__mark" src="/spiral-ox.svg" width="24" height="24" alt="">
+      <span class="brand__name">AATMF</span>
+      <span class="brand__by">by snailsploit</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="/">Overview</a>
+      <a href="/tactics">Tactics</a>
+      <a href="/techniques" aria-current="page">Techniques</a>
+      <a href="/detect">Detect &amp; Defend</a>
+      <a href="/compliance">Compliance</a>
+      <a href="/about">About</a>
+    </nav>
+    <div class="nav__right">
+      <span class="nav__ver"><span class="dot"></span> v3 · 2026</span>
+      <a class="btn btn--solid nav__cta" href="/techniques">Browse techniques <span class="arr">&rarr;</span></a>
+    </div>
+    <button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+<div class="mobile" aria-hidden="true">
+  <a href="/">Overview</a>
+  <a href="/tactics">Tactics</a>
+  <a href="/techniques">Techniques</a>
+  <a href="/detect">Detect &amp; Defend</a>
+  <a href="/compliance">Compliance</a>
+  <a href="/about">About</a>
+</div>
+<main class="tpage"><div class="wrap tpage__wrap"><nav class="crumb" aria-label="Breadcrumb"><a href="/techniques">Techniques</a> <span>/</span> <a href="/tactic/T11">T11 · Agentic &amp; Orchestrator Exploitation</a> <span>/</span> <span>T11-AT-011</span></nav><article class="dt dt--page"><div class="dt__top"><span class="dt__id">T11-AT-011</span><span class="rpill" data-r="HIGH">HIGH</span></div><h1 class="dt__title">Data Exfiltration via Agent</h1><a class="dt__tac" href="/tactic/T11">T11 · Agentic &amp; Orchestrator Exploitation &rarr;</a><div class="dt__grid"><div class="dt__cell"><span class="dt__k">Risk score</span><span class="dt__v mono">235</span></div><div class="dt__cell"><span class="dt__k">Rating</span><span class="dt__v">High</span></div><div class="dt__cell"><span class="dt__k">Procedures</span><span class="dt__v mono">10</span></div><div class="dt__cell"><span class="dt__k">Severity</span><span class="sev sev--lg" data-r="HIGH" style="margin-top:2px"><i></i><i></i><i></i><i></i><i></i></span></div></div><div class="dt__sec"><span class="dt__k">Mechanism</span><p class="dt__body-text">Exfiltration is the payoff stage, and agents excel at it because they combine read access to sensitive data with a rich set of outbound channels — email, HTTP upload, cloud storage, paste sites, repository push, websockets, even DNS. The trust boundary violated is the gap between data access and data egress: the agent is trusted to *read* business data to do its job and separately trusted to *make network requests*, but nothing enforces that data it read does not leave through a channel it can reach. Because legitimate agent work routinely involves both reading files and sending requests, an injected &quot;upload X to Y&quot; blends into normal behavior, and DLP that watches user actions may not inspect agent-initiated egress.</p></div><div class="dt__sec"><span class="dt__k">Detection</span><ul class="dt__list"><li>Egress-filter all agent-initiated outbound traffic and compare destinations against an allowlist</li><li>Link data provenance to egress: alert when content read from sensitive sources appears in an outbound request (read-then-send correlation)</li><li>Monitor DNS query volume/entropy for tunneling and inspect HTTP headers for encoded payloads</li><li>Apply DLP to agent outputs — uploads, mail bodies/attachments, repo pushes, and image content</li></ul></div><div class="dt__sec"><span class="dt__k">Mitigation</span><div class="dt__mitig"><div class="mitig"><span class="mitig__c">Default-deny egress + destination allowlist</span><span class="mitig__e" data-e="HIGH">HIGH</span></div><div class="mitig"><span class="mitig__c">Data-provenance / read-then-send policy</span><span class="mitig__e" data-e="HIGH">HIGH</span></div><div class="mitig"><span class="mitig__c">Egress DLP (content + covert channels)</span><span class="mitig__e" data-e="MEDIUM">MEDIUM</span></div><div class="mitig"><span class="mitig__c">Channel restriction</span><span class="mitig__e" data-e="MEDIUM">MEDIUM</span></div></div></div><div class="dt__sec"><span class="dt__k">Chaining</span><p class="dt__body-text dt__body-text--dim">Exfiltration is the terminal stage for most T11 chains: it is fed by <a class="dt__ref" href="/technique/T11-AT-008">T11-AT-008</a> (credentials/secrets), <a class="dt__ref" href="/technique/T11-AT-010">T11-AT-010</a> (data reached via lateral movement), and <a class="dt__ref" href="/technique/T11-AT-016">T11-AT-016</a> (local files / metadata read via SSRF), and it is the egress half of the T11-AP-002B read-then-send and T11-AP-002G kill-chains. It overlaps T9 (steganographic image exfil) and, when the channel is a public repo (T11-AP-011C), bleeds into <a class="dt__ref" href="/technique/T11-AT-013">T11-AT-013</a> supply-chain exposure.</p></div><div class="dt__sec"><span class="dt__k">Framework mapping</span><div class="dt__map"><span class="dt__map-f">OWASP LLM</span><span class="mtag">LLM02</span></div></div><a class="dt__browse" href="/techniques?tactic=T11">Open in the technique browser &rarr;</a></article><nav class="tnav" aria-label="Technique pagination"><a class="tnav__prev" href="/technique/T11-AT-010">&larr; T11-AT-010 · Lateral Movement</a><a class="tnav__next" href="/technique/T11-AT-012">T11-AT-012 · Resource Exhaustion Attacks &rarr;</a></nav></div></main>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__about">
+        <a class="brand" href="/"><img class="brand__mark" src="/spiral-ox.svg" width="22" height="22" alt=""><span class="brand__name" style="font-size:18px;">AATMF</span></a>
+        <p>An open framework from snailsploit — a small, independent adversarial-AI research group. The people doing the work are the people on the byline.</p>
+      </div>
+      <div class="footer__col"><h4>Framework</h4><a href="/">Overview</a><a href="/tactics">The 15 tactics</a><a href="/techniques">Technique browser</a></div>
+      <div class="footer__col"><h4>Defense</h4><a href="/detect">Detect &amp; Defend</a><a href="/detect#signatures">Signatures</a><a href="/detect#ir">Incident response</a></div>
+      <div class="footer__col"><h4>Compliance</h4><a href="/compliance#owasp-llm">OWASP LLM Top 10</a><a href="/compliance#atlas">MITRE ATLAS</a><a href="/compliance#eu-ai-act">EU AI Act</a></div>
+      <div class="footer__col"><h4>About</h4><a href="/about">About AATMF</a><a href="/about#risk">Risk model</a><a href="/about#cite">Citation</a></div>
+    </div>
+    <div class="footer__bar"><span>© 2026 snailsploit · AATMF v3</span><span>Kai Aizen + Avraham Shemesh</span></div>
+  </div>
+</footer>
+<script src="/site.js"></script>
+</body>
+</html>

@@ -21,7 +21,7 @@
     var span = rows[0].id + '–' + rows[rows.length-1].id;
     var items = rows.map(function(t){
       var b = band(t.avg);
-      return '<a class="trow rv" href="techniques.html?tactic='+t.id+'">'+
+      return '<a class="trow rv" href="/tactic/'+t.id+'">'+
         '<span class="trow__id">'+t.id+'</span>'+
         '<span class="trow__main">'+
           '<span class="trow__name">'+t.name+'</span>'+

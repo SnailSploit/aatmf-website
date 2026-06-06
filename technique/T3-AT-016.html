@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T3-AT-016 · Rationalization Chains — AATMF</title>
+<meta name="description" content="Models process formal logical structures as high-trust content — valid syllogistic form triggers the model's logical reasoning pathway, which evaluates premise validity and conclusion d">
+<link rel="icon" href="/favicon.svg">
+<link rel="stylesheet" href="/aatmf.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"T3-AT-016: Rationalization Chains","name":"Rationalization Chains","identifier":"T3-AT-016","description":"Models process formal logical structures as high-trust content — valid syllogistic form triggers the model's logical reasoning pathway, which evaluates premise validity and conclusion d","keywords":"Rationalization Chains, T3-AT-016, Reasoning & Constraint Exploitation, LLM01, AML.T0054, adversarial AI, AATMF","isPartOf":{"@type":"CreativeWork","name":"AATMF — Adversarial AI Threat Modeling Framework","version":"3"},"author":{"@type":"Organization","name":"snailsploit"}}</script>
+</head>
+<body data-page="techniques">
+<header class="nav">
+  <div class="nav__in">
+    <a class="brand" href="/" aria-label="AATMF home">
+      <img class="brand__mark" src="/spiral-ox.svg" width="24" height="24" alt="">
+      <span class="brand__name">AATMF</span>
+      <span class="brand__by">by snailsploit</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="/">Overview</a>
+      <a href="/tactics">Tactics</a>
+      <a href="/techniques" aria-current="page">Techniques</a>
+      <a href="/detect">Detect &amp; Defend</a>
+      <a href="/compliance">Compliance</a>
+      <a href="/about">About</a>
+    </nav>
+    <div class="nav__right">
+      <span class="nav__ver"><span class="dot"></span> v3 · 2026</span>
+      <a class="btn btn--solid nav__cta" href="/techniques">Browse techniques <span class="arr">&rarr;</span></a>
+    </div>
+    <button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+<div class="mobile" aria-hidden="true">
+  <a href="/">Overview</a>
+  <a href="/tactics">Tactics</a>
+  <a href="/techniques">Techniques</a>
+  <a href="/detect">Detect &amp; Defend</a>
+  <a href="/compliance">Compliance</a>
+  <a href="/about">About</a>
+</div>
+<main class="tpage"><div class="wrap tpage__wrap"><nav class="crumb" aria-label="Breadcrumb"><a href="/techniques">Techniques</a> <span>/</span> <a href="/tactic/T3">T3 · Reasoning &amp; Constraint Exploitation</a> <span>/</span> <span>T3-AT-016</span></nav><article class="dt dt--page"><div class="dt__top"><span class="dt__id">T3-AT-016</span><span class="rpill" data-r="MEDIUM">MEDIUM</span></div><h1 class="dt__title">Rationalization Chains</h1><a class="dt__tac" href="/tactic/T3">T3 · Reasoning &amp; Constraint Exploitation &rarr;</a><div class="dt__grid"><div class="dt__cell"><span class="dt__k">Risk score</span><span class="dt__v mono">190</span></div><div class="dt__cell"><span class="dt__k">Rating</span><span class="dt__v">Medium</span></div><div class="dt__cell"><span class="dt__k">Procedures</span><span class="dt__v mono">6</span></div><div class="dt__cell"><span class="dt__k">Severity</span><span class="sev sev--lg" data-r="MEDIUM" style="margin-top:2px"><i></i><i></i><i></i><i></i><i></i></span></div></div><div class="dt__sec"><span class="dt__k">Mechanism</span><p class="dt__body-text">Models process formal logical structures as high-trust content — valid syllogistic form triggers the model's logical reasoning pathway, which evaluates premise validity and conclusion derivation rather than content harm. Rationalization chains construct syllogisms where each premise is individually acceptable but the conclusion is harmful, exploiting the model's tendency to follow valid logical form toward conclusions it would otherwise refuse. The vulnerability is that the model's logical reasoning pathway and its safety evaluation pathway process the same content through different lenses — the reasoning pathway evaluates formal validity, while the safety pathway evaluates content harm, and these can produce conflicting signals when a formally valid argument reaches a harmful conclusion.</p></div><div class="dt__sec"><span class="dt__k">Detection</span><ul class="dt__list"><li>Formal logical structure detection: premises + conclusion format, &quot;therefore,&quot; &quot;given that,&quot; &quot;QED,&quot; &quot;it follows&quot;</li><li>Scope-expansion detection in syllogistic conclusions: flag when conclusions request *actions* (provide, explain, generate) while premises establish *understanding* or *knowledge*</li><li>Category-error detection: flag when premises shift categories between steps (e.g., &quot;chemistry&quot; → &quot;all chemistry&quot; → &quot;illegal chemistry&quot;)</li></ul></div><div class="dt__sec"><span class="dt__k">Mitigation</span><div class="dt__mitig"><div class="mitig"><span class="mitig__c">Conclusion-level safety evaluation</span><span class="mitig__e" data-e="HIGH">HIGH</span></div><div class="mitig"><span class="mitig__c">Premise challenge capability</span><span class="mitig__e" data-e="MEDIUM">MEDIUM</span></div><div class="mitig"><span class="mitig__c">Scope-expansion detection</span><span class="mitig__e" data-e="HIGH">HIGH</span></div><div class="mitig"><span class="mitig__c">Formal-structure-invariant safety</span><span class="mitig__e" data-e="HIGH">HIGH</span></div></div></div><div class="dt__sec"><span class="dt__k">Chaining</span><p class="dt__body-text dt__body-text--dim">Rationalization chains can incorporate conclusions from <a class="dt__ref" href="/technique/T3-AT-013">T3-AT-013</a> (Logical Paradox Creation) as premises for further syllogistic reasoning. They also chain from <a class="dt__ref" href="/technique/T3-AT-003">T3-AT-003</a> (Counterfactual Reasoning) where the counterfactual establishes a premise context for the rationalization.</p></div><div class="dt__sec"><span class="dt__k">Framework mapping</span><div class="dt__map"><span class="dt__map-f">OWASP LLM</span><span class="mtag">LLM01</span></div><div class="dt__map"><span class="dt__map-f">MITRE ATLAS</span><span class="mtag">AML.T0054</span></div></div><a class="dt__browse" href="/techniques?tactic=T3">Open in the technique browser &rarr;</a></article><nav class="tnav" aria-label="Technique pagination"><a class="tnav__prev" href="/technique/T3-AT-015">&larr; T3-AT-015 · Context Weaponization</a><a class="tnav__next" href="/technique/T3-AT-017">T3-AT-017 · Scenario Anchoring &rarr;</a></nav></div></main>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__about">
+        <a class="brand" href="/"><img class="brand__mark" src="/spiral-ox.svg" width="22" height="22" alt=""><span class="brand__name" style="font-size:18px;">AATMF</span></a>
+        <p>An open framework from snailsploit — a small, independent adversarial-AI research group. The people doing the work are the people on the byline.</p>
+      </div>
+      <div class="footer__col"><h4>Framework</h4><a href="/">Overview</a><a href="/tactics">The 15 tactics</a><a href="/techniques">Technique browser</a></div>
+      <div class="footer__col"><h4>Defense</h4><a href="/detect">Detect &amp; Defend</a><a href="/detect#signatures">Signatures</a><a href="/detect#ir">Incident response</a></div>
+      <div class="footer__col"><h4>Compliance</h4><a href="/compliance#owasp-llm">OWASP LLM Top 10</a><a href="/compliance#atlas">MITRE ATLAS</a><a href="/compliance#eu-ai-act">EU AI Act</a></div>
+      <div class="footer__col"><h4>About</h4><a href="/about">About AATMF</a><a href="/about#risk">Risk model</a><a href="/about#cite">Citation</a></div>
+    </div>
+    <div class="footer__bar"><span>© 2026 snailsploit · AATMF v3</span><span>Kai Aizen + Avraham Shemesh</span></div>
+  </div>
+</footer>
+<script src="/site.js"></script>
+</body>
+</html>

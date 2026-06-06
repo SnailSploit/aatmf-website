@@ -59,7 +59,7 @@
       var maps = [];
       if(t.owasp) maps.push(t.owasp);
       if(t.atlas) maps.push(t.atlas);
-      return '<button class="res" data-id="'+t.id+'">'+
+      return '<a class="res" href="/technique/'+t.id+'" data-id="'+t.id+'">'+
         '<span class="res__id">'+t.id+'</span>'+
         '<span class="res__main">'+
           '<span class="res__title">'+t.title+'</span>'+
@@ -71,7 +71,7 @@
           '<span class="res__score">'+t.score+'</span>'+
           '<span class="rpill" data-r="'+t.rating+'">'+t.rating+'</span>'+
         '</span>'+
-      '</button>';
+      '</a>';
     }).join('');
   }
 
@@ -122,6 +122,7 @@
     if(!D.m && !(D.d&&D.d.length)){
       html += '<p class="dt__note">Full procedure-level detail for <b>'+t.id+'</b> is published in the AATMF v3 dataset.</p>';
     }
+    html += '<a class="dt__browse" href="/technique/'+t.id+'">Open the full page for '+t.id+' &rarr;</a>';
 
     dBody.innerHTML = html;
     drawer.classList.add('open'); scrim.classList.add('open');
@@ -145,7 +146,10 @@
     apply();
   });
   els.list.addEventListener('click', function(e){
-    var r = e.target.closest('.res'); if(r) openDetail(r.getAttribute('data-id'));
+    var r = e.target.closest('.res'); if(!r) return;
+    if(e.metaKey||e.ctrlKey||e.shiftKey||e.button!==0) return; // allow open-in-new-tab
+    e.preventDefault();
+    openDetail(r.getAttribute('data-id'));
   });
   els.clear.addEventListener('click', function(){
     state = { q:'', tactic:'all', sev:'all', sort:'risk' };

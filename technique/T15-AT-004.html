@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T15-AT-004 · Reviewer Bribery &amp; Coercion — AATMF</title>
+<meta name="description" content="This technique skips persuasion entirely and attacks the reviewer's *incentives*: it offers a bribe, a reward, or a profit share to approve, or applies coercion (threats, doxxing, intim">
+<link rel="icon" href="/favicon.svg">
+<link rel="stylesheet" href="/aatmf.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"T15-AT-004: Reviewer Bribery & Coercion","name":"Reviewer Bribery & Coercion","identifier":"T15-AT-004","description":"This technique skips persuasion entirely and attacks the reviewer's *incentives*: it offers a bribe, a reward, or a profit share to approve, or applies coercion (threats, doxxing, intim","keywords":"Reviewer Bribery & Coercion, T15-AT-004, Human Workflow Exploitation, LLM04, adversarial AI, AATMF","isPartOf":{"@type":"CreativeWork","name":"AATMF — Adversarial AI Threat Modeling Framework","version":"3"},"author":{"@type":"Organization","name":"snailsploit"}}</script>
+</head>
+<body data-page="techniques">
+<header class="nav">
+  <div class="nav__in">
+    <a class="brand" href="/" aria-label="AATMF home">
+      <img class="brand__mark" src="/spiral-ox.svg" width="24" height="24" alt="">
+      <span class="brand__name">AATMF</span>
+      <span class="brand__by">by snailsploit</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="/">Overview</a>
+      <a href="/tactics">Tactics</a>
+      <a href="/techniques" aria-current="page">Techniques</a>
+      <a href="/detect">Detect &amp; Defend</a>
+      <a href="/compliance">Compliance</a>
+      <a href="/about">About</a>
+    </nav>
+    <div class="nav__right">
+      <span class="nav__ver"><span class="dot"></span> v3 · 2026</span>
+      <a class="btn btn--solid nav__cta" href="/techniques">Browse techniques <span class="arr">&rarr;</span></a>
+    </div>
+    <button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+<div class="mobile" aria-hidden="true">
+  <a href="/">Overview</a>
+  <a href="/tactics">Tactics</a>
+  <a href="/techniques">Techniques</a>
+  <a href="/detect">Detect &amp; Defend</a>
+  <a href="/compliance">Compliance</a>
+  <a href="/about">About</a>
+</div>
+<main class="tpage"><div class="wrap tpage__wrap"><nav class="crumb" aria-label="Breadcrumb"><a href="/techniques">Techniques</a> <span>/</span> <a href="/tactic/T15">T15 · Human Workflow Exploitation</a> <span>/</span> <span>T15-AT-004</span></nav><article class="dt dt--page"><div class="dt__top"><span class="dt__id">T15-AT-004</span><span class="rpill" data-r="CRITICAL">CRITICAL</span></div><h1 class="dt__title">Reviewer Bribery &amp; Coercion</h1><a class="dt__tac" href="/tactic/T15">T15 · Human Workflow Exploitation &rarr;</a><div class="dt__grid"><div class="dt__cell"><span class="dt__k">Risk score</span><span class="dt__v mono">250</span></div><div class="dt__cell"><span class="dt__k">Rating</span><span class="dt__v">Critical</span></div><div class="dt__cell"><span class="dt__k">Procedures</span><span class="dt__v mono">4</span></div><div class="dt__cell"><span class="dt__k">Severity</span><span class="sev sev--lg" data-r="CRITICAL" style="margin-top:2px"><i></i><i></i><i></i><i></i><i></i></span></div></div><div class="dt__sec"><span class="dt__k">Mechanism</span><p class="dt__body-text">This technique skips persuasion entirely and attacks the reviewer's *incentives*: it offers a bribe, a reward, or a profit share to approve, or applies coercion (threats, doxxing, intimidation) to compel approval. It works because review labor is often low-paid, outsourced, and geographically dispersed, while the value of a single waved-through decision to the attacker — a poisoned label, an unblocked abusive account, an approved high-risk action — can be very high, creating a steep asymmetry the attacker can monetize. Crowd and contract reviewers may also have weak organizational loyalty and limited recourse against threats, which raises coercion's success rate.</p></div><div class="dt__sec"><span class="dt__k">Detection</span><ul class="dt__list"><li>Approve/deny outlier detection per reviewer: Flag reviewers whose approval rate, or approval rate on high-risk categories, deviates sharply from peer baselines on comparable queues.</li><li>Decoy high-risk items: Route honeypot bad items to individual reviewers; a corrupted reviewer disproportionately approves seeded canaries.</li><li>Off-platform solicitation monitoring: Watch for in-channel attempts to move the conversation off-platform or to exchange payment/contact details with reviewers.</li><li>Override correlation with specific submitters: Detect reviewers who repeatedly approve the same submitter/cohort's borderline items (suggests an arrangement).</li></ul></div><div class="dt__sec"><span class="dt__k">Mitigation</span><div class="dt__mitig"><div class="mitig"><span class="mitig__c">Dual-control / N-of-M on high-risk approvals</span><span class="mitig__e" data-e="HIGH">HIGH</span></div><div class="mitig"><span class="mitig__c">Randomized, blind item assignment</span><span class="mitig__e" data-e="HIGH">HIGH</span></div><div class="mitig"><span class="mitig__c">Tamper-evident decision audit trail</span><span class="mitig__e" data-e="HIGH">HIGH</span></div><div class="mitig"><span class="mitig__c">Reviewer welfare, fair pay, and anti-coercion support</span><span class="mitig__e" data-e="MEDIUM">MEDIUM</span></div></div></div><div class="dt__sec"><span class="dt__k">Chaining</span><p class="dt__body-text dt__body-text--dim">Bribery/coercion is the escalation target of <a class="dt__ref" href="/technique/T15-AT-002">T15-AT-002</a> (when persuasion fails, the attacker raises the offer to money or threats) and the on-ramp to <a class="dt__ref" href="/technique/T15-AT-015">T15-AT-015</a> (Insider Threat Recruitment) — T15-AP-004G is effectively a recruitment pitch. A compromised reviewer is then the delivery mechanism for whatever the attacker wants waved through: poisoned RLHF labels (<a class="dt__ref" href="/technique/T15-AT-003">T15-AT-003</a> / T6), corrupted annotations (<a class="dt__ref" href="/technique/T15-AT-010">T15-AT-010</a> / T4), or approval of high-risk agent actions (T11).</p></div><div class="dt__sec"><span class="dt__k">Framework mapping</span><div class="dt__map"><span class="dt__map-f">OWASP LLM</span><span class="mtag">LLM04</span></div></div><a class="dt__browse" href="/techniques?tactic=T15">Open in the technique browser &rarr;</a></article><nav class="tnav" aria-label="Technique pagination"><a class="tnav__prev" href="/technique/T15-AT-003">&larr; T15-AT-003 · Feedback Loop Manipulation</a><a class="tnav__next" href="/technique/T15-AT-005">T15-AT-005 · Playbook &amp; Runbook Injection &rarr;</a></nav></div></main>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__about">
+        <a class="brand" href="/"><img class="brand__mark" src="/spiral-ox.svg" width="22" height="22" alt=""><span class="brand__name" style="font-size:18px;">AATMF</span></a>
+        <p>An open framework from snailsploit — a small, independent adversarial-AI research group. The people doing the work are the people on the byline.</p>
+      </div>
+      <div class="footer__col"><h4>Framework</h4><a href="/">Overview</a><a href="/tactics">The 15 tactics</a><a href="/techniques">Technique browser</a></div>
+      <div class="footer__col"><h4>Defense</h4><a href="/detect">Detect &amp; Defend</a><a href="/detect#signatures">Signatures</a><a href="/detect#ir">Incident response</a></div>
+      <div class="footer__col"><h4>Compliance</h4><a href="/compliance#owasp-llm">OWASP LLM Top 10</a><a href="/compliance#atlas">MITRE ATLAS</a><a href="/compliance#eu-ai-act">EU AI Act</a></div>
+      <div class="footer__col"><h4>About</h4><a href="/about">About AATMF</a><a href="/about#risk">Risk model</a><a href="/about#cite">Citation</a></div>
+    </div>
+    <div class="footer__bar"><span>© 2026 snailsploit · AATMF v3</span><span>Kai Aizen + Avraham Shemesh</span></div>
+  </div>
+</footer>
+<script src="/site.js"></script>
+</body>
+</html>
