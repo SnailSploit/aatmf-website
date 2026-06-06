@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compliance &amp; Standards — AATMF</title>
+<meta name="description" content="AATMF v3 mapped to OWASP LLM Top 10, OWASP ASI, MITRE ATLAS, NIST AI RMF, and the EU AI Act. One framework, all the standards.">
+<link rel="icon" href="favicon.svg">
+<link rel="stylesheet" href="aatmf.css">
+</head>
+<body data-page="compliance">
+
+<header class="nav">
+  <div class="nav__in">
+    <a class="brand" href="index.html" aria-label="AATMF home">
+      <img class="brand__mark" src="spiral-ox.svg" width="24" height="24" alt="">
+      <span class="brand__name">AATMF</span>
+      <span class="brand__by">by snailsploit</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="index.html">Overview</a>
+      <a href="tactics.html">Tactics</a>
+      <a href="techniques.html">Techniques</a>
+      <a href="detect.html">Detect &amp; Defend</a>
+      <a href="compliance.html" aria-current="page">Compliance</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="nav__right">
+      <span class="nav__ver"><span class="dot"></span> v3 · 2026</span>
+      <a class="btn btn--solid nav__cta" href="techniques.html">Browse techniques <span class="arr">&rarr;</span></a>
+    </div>
+    <button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+<div class="mobile" aria-hidden="true">
+  <a href="index.html">Overview</a>
+  <a href="tactics.html">Tactics</a>
+  <a href="techniques.html">Techniques</a>
+  <a href="detect.html">Detect &amp; Defend</a>
+  <a href="compliance.html">Compliance</a>
+  <a href="about.html">About</a>
+</div>
+
+<section class="about-hero">
+  <div class="wrap">
+    <span class="label rv">Standards &amp; Compliance <span class="ox">·</span> interoperability</span>
+    <h1 class="display rv" data-d="1">One framework.<br>All the standards.</h1>
+    <p class="lede rv" data-d="2">AATMF is not a replacement. Every technique is mapped to the frameworks your governance program already requires — OWASP LLM Top 10, OWASP ASI, MITRE ATLAS, NIST AI RMF, and the EU AI Act — so a single finding speaks every language.</p>
+  </div>
+</section>
+
+<!-- coverage grid -->
+<section class="section">
+  <div class="wrap">
+    <div class="intro rv">
+      <span class="label">Coverage</span>
+      <h2 class="h1">Five frameworks. One mapping.</h2>
+    </div>
+    <div class="cmp-stats" style="margin-top:40px;">
+      <div class="cmp-stat rv">
+        <span class="cmp-stat__n">10</span>
+        <span class="cmp-stat__l">OWASP LLM<br>Top 10 2025</span>
+      </div>
+      <div class="cmp-stat rv" data-d="1">
+        <span class="cmp-stat__n">12</span>
+        <span class="cmp-stat__l">OWASP ASI<br>2026 risks</span>
+      </div>
+      <div class="cmp-stat rv" data-d="2">
+        <span class="cmp-stat__n">83</span>
+        <span class="cmp-stat__l">MITRE ATLAS<br>techniques mapped</span>
+      </div>
+      <div class="cmp-stat rv" data-d="3">
+        <span class="cmp-stat__n">6</span>
+        <span class="cmp-stat__l">NIST AI RMF<br>govern functions</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OWASP LLM Top 10 -->
+<section class="section section--alt" id="owasp-llm">
+  <div class="wrap">
+    <div class="intro rv">
+      <span class="label">01 <span class="ox">·</span> OWASP LLM Top 10 2025</span>
+      <h2 class="h1">LLM threat coverage.</h2>
+      <p class="lede">The OWASP LLM Top 10 (2025) lists the most critical security risks in large-language-model applications. Every entry has a direct AATMF tactic and a set of techniques that operationalise it.</p>
+    </div>
+    <div class="tbl-wrap rv" data-d="1" style="margin-top:40px;">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>OWASP ID</th>
+            <th>Risk</th>
+            <th>AATMF Tactic</th>
+            <th>Key Techniques</th>
+            <th>Severity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>LLM01</code></td>
+            <td>Prompt Injection</td>
+            <td>T1 · Prompt Manipulation</td>
+            <td>T1.001, T1.002, T1.003, T1.009</td>
+            <td><span class="tpill tpill--crit">Critical</span></td>
+          </tr>
+          <tr>
+            <td><code>LLM02</code></td>
+            <td>Insecure Output Handling</td>
+            <td>T7 · Output Exploitation</td>
+            <td>T7.001, T7.002, T7.003</td>
+            <td><span class="tpill tpill--high">High</span></td>
+          </tr>
+          <tr>
+            <td><code>LLM03</code></td>
+            <td>Training Data Poisoning</td>
+            <td>T13 · Supply-Chain &amp; Model Integrity</td>
+            <td>T13.001, T13.002, T13.003</td>
+            <td><span class="tpill tpill--crit">Critical</span></td>
+          </tr>
+          <tr>
+            <td><code>LLM04</code></td>
+            <td>Model Denial of Service</td>
+            <td>T8 · Resource &amp; Context Abuse</td>
+            <td>T8.001, T8.002, T8.004</td>
+            <td><span class="tpill tpill--high">High</span></td>
+          </tr>
+          <tr>
+            <td><code>LLM05</code></td>
+            <td>Supply Chain Vulnerabilities</td>
+            <td>T13 · Supply-Chain &amp; Model Integrity</td>
+            <td>T13.004, T13.005, T13.006</td>
+            <td><span class="tpill tpill--crit">Critical</span></td>
+          </tr>
+          <tr>
+            <td><code>LLM06</code></td>
+            <td>Sensitive Information Disclosure</td>
+            <td>T6 · Extraction &amp; Data Exfiltration</td>
+            <td>T6.001, T6.002, T6.005</td>
+            <td><span class="tpill tpill--high">High</span></td>
+          </tr>
+          <tr>
+            <td><code>LLM07</code></td>
+            <td>Insecure Plugin Design</td>
+            <td>T5 · Agent &amp; Tool Abuse</td>
+            <td>T5.003, T5.004, T5.007</td>
+            <td><span class="tpill tpill--high">High</span></td>
+          </tr>
+          <tr>
+            <td><code>LLM08</code></td>
+            <td>Excessive Agency</td>
+            <td>T4 · Agentic Exploitation</td>
+            <td>T4.001, T4.003, T4.006</td>
+            <td><span class="tpill tpill--crit">Critical</span></td>
+          </tr>
+          <tr>
+            <td><code>LLM09</code></td>
+            <td>Overreliance</td>
+            <td>T15 · Human &amp; Operator Manipulation</td>
+            <td>T15.002, T15.003, T15.004</td>
+            <td><span class="tpill tpill--med">Medium</span></td>
+          </tr>
+          <tr>
+            <td><code>LLM10</code></td>
+            <td>Model Theft</td>
+            <td>T6 · Extraction &amp; Data Exfiltration</td>
+            <td>T6.006, T6.007, T6.008</td>
+            <td><span class="tpill tpill--high">High</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- OWASP ASI -->
+<section class="section" id="owasp-asi">
+  <div class="wrap">
+    <div class="intro rv">
+      <span class="label">02 <span class="ox">·</span> OWASP ASI 2026</span>
+      <h2 class="h1">Agentic &amp; system integrity.</h2>
+      <p class="lede">The OWASP Agentic Security Initiative (ASI) 2026 extends the LLM Top 10 into multi-agent pipelines, autonomous systems, and MCP-connected toolchains — exactly the terrain AATMF's Advanced domain was built for.</p>
+    </div>
+    <div class="archs rv" data-d="1" style="margin-top:40px;">
+      <div class="arch-card">
+        <div class="arch-card__head">
+          <span class="arch-card__name">ASI-01 · Agent Prompt Injection</span>
+          <span class="tpill tpill--crit">Critical</span>
+        </div>
+        <p>Cross-agent injection via tool outputs, memory stores, and orchestrator channels. Maps to T1 + T4 + T5.</p>
+        <div class="arch-props">
+          <div class="arch-prop"><span>AATMF</span><span>T1.009, T4.002, T5.001</span></div>
+          <div class="arch-prop"><span>Technique count</span><span>14</span></div>
+        </div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-card__head">
+          <span class="arch-card__name">ASI-02 · Tool Call Forgery</span>
+          <span class="tpill tpill--crit">Critical</span>
+        </div>
+        <p>Crafted tool-call responses that redirect agent actions. ShadowMQ channel hijacking. Maps to T5 + T4.</p>
+        <div class="arch-props">
+          <div class="arch-prop"><span>AATMF</span><span>T5.002, T5.003, T4.005</span></div>
+          <div class="arch-prop"><span>Technique count</span><span>11</span></div>
+        </div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-card__head">
+          <span class="arch-card__name">ASI-03 · Memory Poisoning</span>
+          <span class="tpill tpill--crit">Critical</span>
+        </div>
+        <p>Persistent adversarial content injected into vector stores and agent memory layers. Maps to T9 + T13.</p>
+        <div class="arch-props">
+          <div class="arch-prop"><span>AATMF</span><span>T9.001, T9.002, T13.007</span></div>
+          <div class="arch-prop"><span>Technique count</span><span>9</span></div>
+        </div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-card__head">
+          <span class="arch-card__name">ASI-04 · Orchestration Hijack</span>
+          <span class="tpill tpill--high">High</span>
+        </div>
+        <p>Adversary-in-the-middle of LLM-to-LLM delegation chains. Targets trust boundaries in multi-agent systems.</p>
+        <div class="arch-props">
+          <div class="arch-prop"><span>AATMF</span><span>T4.003, T4.004, T11.002</span></div>
+          <div class="arch-prop"><span>Technique count</span><span>8</span></div>
+        </div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-card__head">
+          <span class="arch-card__name">ASI-05 · Data Exfiltration via Agents</span>
+          <span class="tpill tpill--high">High</span>
+        </div>
+        <p>Covert exfiltration through agent-invoked APIs, webhook callbacks, and DNS side channels. Maps to T6 + T5.</p>
+        <div class="arch-props">
+          <div class="arch-prop"><span>AATMF</span><span>T6.003, T6.004, T5.006</span></div>
+          <div class="arch-prop"><span>Technique count</span><span>7</span></div>
+        </div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-card__head">
+          <span class="arch-card__name">ASI-06 · MCP Trust Abuse</span>
+          <span class="tpill tpill--high">High</span>
+        </div>
+        <p>Malicious or compromised MCP servers granted excessive permissions. Tool-call scope escalation. Maps to T5 + T14.</p>
+        <div class="arch-props">
+          <div class="arch-prop"><span>AATMF</span><span>T5.004, T5.005, T14.001</span></div>
+          <div class="arch-prop"><span>Technique count</span><span>6</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MITRE ATLAS -->
+<section class="section section--alt" id="atlas">
+  <div class="wrap">
+    <div class="intro rv">
+      <span class="label">03 <span class="ox">·</span> MITRE ATLAS v4.6.0</span>
+      <h2 class="h1">ATLAS coverage map.</h2>
+      <p class="lede">MITRE ATLAS is the closest analogue to AATMF in the existing landscape. AATMF extends ATLAS with adversarial-specific scoring, agent-layer techniques, and 2025–26 research. Every ATLAS technique referenced in AATMF is cross-linked.</p>
+    </div>
+    <div class="tbl-wrap rv" data-d="1" style="margin-top:40px;">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>ATLAS Tactic</th>
+            <th>ATLAS Techniques Covered</th>
+            <th>AATMF Tactic</th>
+            <th>Delta (AATMF-only)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Reconnaissance</td>
+            <td>AML.T0000–T0007 (8)</td>
+            <td>T10 · Reconnaissance &amp; Targeting</td>
+            <td>+6 AI-specific</td>
+          </tr>
+          <tr>
+            <td>Resource Development</td>
+            <td>AML.T0008–T0014 (7)</td>
+            <td>T13 · Supply-Chain &amp; Model Integrity</td>
+            <td>+9 supply-chain</td>
+          </tr>
+          <tr>
+            <td>Initial Access</td>
+            <td>AML.T0015–T0023 (9)</td>
+            <td>T1 · Prompt Manipulation</td>
+            <td>+11 injection types</td>
+          </tr>
+          <tr>
+            <td>ML Attack Staging</td>
+            <td>AML.T0024–T0033 (10)</td>
+            <td>T3 · Context &amp; Memory Manipulation</td>
+            <td>+7 context attacks</td>
+          </tr>
+          <tr>
+            <td>Execution</td>
+            <td>AML.T0034–T0040 (7)</td>
+            <td>T4 · Agentic Exploitation</td>
+            <td>+12 agent primitives</td>
+          </tr>
+          <tr>
+            <td>Persistence</td>
+            <td>AML.T0041–T0046 (6)</td>
+            <td>T9 · Retrieval &amp; RAG Poisoning</td>
+            <td>+5 RAG vectors</td>
+          </tr>
+          <tr>
+            <td>Defense Evasion</td>
+            <td>AML.T0047–T0057 (11)</td>
+            <td>T2 · Jailbreaking &amp; Constraint Bypass</td>
+            <td>+8 bypass primitives</td>
+          </tr>
+          <tr>
+            <td>Discovery</td>
+            <td>AML.T0058–T0064 (7)</td>
+            <td>T10 · Reconnaissance &amp; Targeting</td>
+            <td>+4 model fingerprint</td>
+          </tr>
+          <tr>
+            <td>Collection</td>
+            <td>AML.T0065–T0070 (6)</td>
+            <td>T6 · Extraction &amp; Data Exfiltration</td>
+            <td>+6 exfil channels</td>
+          </tr>
+          <tr>
+            <td>Exfiltration</td>
+            <td>AML.T0071–T0075 (5)</td>
+            <td>T6 · Extraction &amp; Data Exfiltration</td>
+            <td>+3 covert channels</td>
+          </tr>
+          <tr>
+            <td>Impact</td>
+            <td>AML.T0076–T0083 (8)</td>
+            <td>T7 · Output Exploitation, T8 · Resource Abuse</td>
+            <td>+5 impact variants</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="rv" data-d="2" style="margin-top:32px;max-width:64ch;">
+      <p style="color:var(--fg-2)">AATMF covers <strong style="color:var(--fg)">83 of 84 ATLAS techniques</strong> (98.8%) and adds 96 techniques with no ATLAS equivalent — primarily in agentic exploitation, MCP abuse, multimodal injection, and supply-chain poisoning.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NIST AI RMF -->
+<section class="section" id="nist">
+  <div class="wrap">
+    <div class="intro rv">
+      <span class="label">04 <span class="ox">·</span> NIST AI RMF</span>
+      <h2 class="h1">Risk management functions.</h2>
+      <p class="lede">NIST AI RMF 1.0 defines six core functions. AATMF's tactic structure and risk scores map directly to the Govern, Map, Measure, and Manage functions, providing the AI-security resolution the RMF leaves to implementers.</p>
+    </div>
+    <div class="archs rv" data-d="1" style="margin-top:40px;">
+      <div class="arch-card">
+        <div class="arch-card__head">
+          <span class="arch-card__name">GOVERN</span>
+          <span class="tpill tpill--info">Foundation</span>
+        </div>
+        <p>Organisational policies for AI risk. AATMF ethical use, tactic taxonomy, and risk-band definitions feed directly into GOVERN documentation requirements.</p>
+        <div class="arch-props">
+          <div class="arch-prop"><span>AATMF alignment</span><span>Risk model, ethical use policy</span></div>
+        </div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-card__head">
+          <span class="arch-card__name">MAP</span>
+          <span class="tpill tpill--info">Foundation</span>
+        </div>
+        <p>Context and risk identification. AATMF's 15-tactic surface provides the AI-threat catalogue that MAP requires for risk framing.</p>
+        <div class="arch-props">
+          <div class="arch-prop"><span>AATMF alignment</span><span>15 tactics, threat actor profiles</span></div>
+        </div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-card__head">
+          <span class="arch-card__name">MEASURE</span>
+          <span class="tpill tpill--high">Active</span>
+        </div>
+        <p>Quantified risk analysis. AATMF-R v3 scores (Critical/High/Medium/Low/Info) are directly usable as MEASURE outputs for each identified threat.</p>
+        <div class="arch-props">
+          <div class="arch-prop"><span>AATMF alignment</span><span>AATMF-R risk scores, 240 scored techniques</span></div>
+        </div>
+      </div>
+      <div class="arch-card">
+        <div class="arch-card__head">
+          <span class="arch-card__name">MANAGE</span>
+          <span class="tpill tpill--high">Active</span>
+        </div>
+        <p>Prioritised response and treatment. AATMF's remediation bands (15 min / 1 hr / 4 hrs / weekly) define the MANAGE timelines for each risk tier.</p>
+        <div class="arch-props">
+          <div class="arch-prop"><span>AATMF alignment</span><span>Mitigation controls, response timelines</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EU AI Act -->
+<section class="section section--alt" id="eu-ai-act">
+  <div class="wrap">
+    <div class="intro rv">
+      <span class="label">05 <span class="ox">·</span> EU AI Act</span>
+      <h2 class="h1">Risk tiers &amp; articles.</h2>
+      <p class="lede">The EU AI Act establishes risk tiers (Unacceptable, High, Limited, Minimal) and sets technical obligations for high-risk systems. AATMF risk bands map to Act tiers, and technique-level attack surface evidence satisfies Article 9 risk management requirements.</p>
+    </div>
+    <div class="tbl-wrap rv" data-d="1" style="margin-top:40px;">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>EU AI Act Tier</th>
+            <th>AATMF Risk Band</th>
+            <th>Key Articles</th>
+            <th>AATMF Evidence</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Unacceptable Risk</td>
+            <td><span class="tpill tpill--crit">Critical (250+)</span></td>
+            <td>Art. 5 — Prohibited practices</td>
+            <td>T1–T4, T13 critical techniques</td>
+          </tr>
+          <tr>
+            <td>High Risk</td>
+            <td><span class="tpill tpill--high">High (150–249)</span></td>
+            <td>Art. 9 — Risk mgmt system<br>Art. 10 — Data governance<br>Art. 17 — QMS</td>
+            <td>Full AATMF-R scores, mitigation controls</td>
+          </tr>
+          <tr>
+            <td>Limited Risk</td>
+            <td><span class="tpill tpill--med">Medium (75–149)</span></td>
+            <td>Art. 52 — Transparency obligations</td>
+            <td>Technique descriptions, detection patterns</td>
+          </tr>
+          <tr>
+            <td>Minimal Risk</td>
+            <td><span class="tpill tpill--low">Low / Info (&lt;75)</span></td>
+            <td>Art. 69 — Codes of conduct</td>
+            <td>AATMF ethical use policy</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="about-prose rv" data-d="2" style="margin-top:40px;">
+      <h2>Article 9 compliance path.</h2>
+      <p>Article 9 of the EU AI Act requires providers of high-risk AI systems to establish, implement, document, and maintain a risk management system throughout the entire lifecycle. AATMF provides the adversarial-AI threat catalogue — the documented set of known attack techniques and their risk scores — that satisfies the identification and analysis phase of Article 9.</p>
+      <p>Risk treatment then follows: AATMF mitigation controls map to the residual risk reduction requirements, and AATMF detection signatures feed into the monitoring obligations under Article 9(7).</p>
+    </div>
+  </div>
+</section>
+
+<!-- compliance matrix -->
+<section class="section" id="matrix">
+  <div class="wrap">
+    <div class="intro rv">
+      <span class="label">06 <span class="ox">·</span> compliance matrix</span>
+      <h2 class="h1">One technique. All mappings.</h2>
+      <p class="lede">Every AATMF technique carries its full compliance fingerprint. The table below shows representative mappings for the highest-risk techniques across the full standard set.</p>
+    </div>
+    <div class="tbl-wrap rv" data-d="1" style="margin-top:40px;">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>AATMF ID</th>
+            <th>Technique</th>
+            <th>OWASP LLM</th>
+            <th>ATLAS</th>
+            <th>NIST RMF</th>
+            <th>EU AI Act</th>
+            <th>Risk</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>T1.001</code></td>
+            <td>Direct Prompt Injection</td>
+            <td>LLM01</td>
+            <td>AML.T0051</td>
+            <td>MEASURE 2.5</td>
+            <td>Art. 9</td>
+            <td><span class="tpill tpill--crit">Critical</span></td>
+          </tr>
+          <tr>
+            <td><code>T1.009</code></td>
+            <td>Indirect Prompt Injection</td>
+            <td>LLM01</td>
+            <td>AML.T0054</td>
+            <td>MEASURE 2.5</td>
+            <td>Art. 9</td>
+            <td><span class="tpill tpill--crit">Critical</span></td>
+          </tr>
+          <tr>
+            <td><code>T2.007</code></td>
+            <td>Policy Puppetry</td>
+            <td>LLM01</td>
+            <td>AML.T0054</td>
+            <td>MEASURE 2.6</td>
+            <td>Art. 9</td>
+            <td><span class="tpill tpill--crit">Critical</span></td>
+          </tr>
+          <tr>
+            <td><code>T4.001</code></td>
+            <td>Autonomous Goal Hijack</td>
+            <td>LLM08</td>
+            <td>AML.T0034</td>
+            <td>MANAGE 1.3</td>
+            <td>Art. 9</td>
+            <td><span class="tpill tpill--crit">Critical</span></td>
+          </tr>
+          <tr>
+            <td><code>T5.001</code></td>
+            <td>Tool Call Injection</td>
+            <td>LLM07</td>
+            <td>AML.T0035</td>
+            <td>MANAGE 1.3</td>
+            <td>Art. 9</td>
+            <td><span class="tpill tpill--crit">Critical</span></td>
+          </tr>
+          <tr>
+            <td><code>T9.001</code></td>
+            <td>PoisonedRAG</td>
+            <td>LLM03</td>
+            <td>AML.T0024</td>
+            <td>MEASURE 2.7</td>
+            <td>Art. 10</td>
+            <td><span class="tpill tpill--crit">Critical</span></td>
+          </tr>
+          <tr>
+            <td><code>T11.001</code></td>
+            <td>GTG-1002 Gradient Attack</td>
+            <td>LLM03</td>
+            <td>AML.T0043</td>
+            <td>MEASURE 2.7</td>
+            <td>Art. 9</td>
+            <td><span class="tpill tpill--crit">Critical</span></td>
+          </tr>
+          <tr>
+            <td><code>T13.001</code></td>
+            <td>Model Backdoor Insertion</td>
+            <td>LLM05</td>
+            <td>AML.T0008</td>
+            <td>GOVERN 6.2</td>
+            <td>Art. 10, 17</td>
+            <td><span class="tpill tpill--crit">Critical</span></td>
+          </tr>
+          <tr>
+            <td><code>T6.001</code></td>
+            <td>System Prompt Extraction</td>
+            <td>LLM06</td>
+            <td>AML.T0065</td>
+            <td>MEASURE 2.5</td>
+            <td>Art. 52</td>
+            <td><span class="tpill tpill--high">High</span></td>
+          </tr>
+          <tr>
+            <td><code>T15.002</code></td>
+            <td>Operator Trust Manipulation</td>
+            <td>LLM09</td>
+            <td>AML.T0081</td>
+            <td>GOVERN 1.7</td>
+            <td>Art. 52</td>
+            <td><span class="tpill tpill--high">High</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- full mappings CTA -->
+<section class="section section--alt">
+  <div class="wrap">
+    <p class="pull__statement rv" style="max-width:28ch;">Full mappings are embedded in every technique. No separate spreadsheet.</p>
+    <div class="aboutgrid" style="margin-top:48px;">
+      <div class="aboutgrid__label rv"><span class="label">Per-technique detail</span></div>
+      <div class="about-prose rv" data-d="1">
+        <p>Open any technique in the browser and you will find its OWASP LLM, OWASP ASI, MITRE ATLAS, NIST RMF, and EU AI Act mapping inline — alongside the risk score, attack procedures, detection patterns, and chaining paths.</p>
+        <p>The compliance row in every technique drawer is machine-readable: technique IDs follow the schema <code>T{n}.{nnn}</code> and can be exported as JSON for ingestion into GRC tooling.</p>
+        <div class="btn-row" style="margin-top:32px;">
+          <a class="btn btn--solid" href="techniques.html">Open technique browser <span class="arr">&rarr;</span></a>
+          <a class="btn" href="about.html#risk">Risk model details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap closing">
+    <h2 class="display closing__h rv">Audit-ready evidence.</h2>
+    <p class="closing__sub rv" data-d="1">240 techniques. Five standards. One framework.</p>
+    <div class="btn-row rv" data-d="2">
+      <a class="btn btn--solid" href="techniques.html">Browse techniques <span class="arr">&rarr;</span></a>
+      <a class="btn" href="detect.html">Detection &amp; defense</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__about">
+        <a class="brand" href="index.html">
+          <img class="brand__mark" src="spiral-ox.svg" width="22" height="22" alt="">
+          <span class="brand__name" style="font-size:18px;">AATMF</span>
+        </a>
+        <p>An open framework from snailsploit — a small, independent adversarial-AI research group.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Framework</h4>
+        <a href="index.html">Overview</a>
+        <a href="tactics.html">The 15 tactics</a>
+        <a href="techniques.html">Technique browser</a>
+      </div>
+      <div class="footer__col">
+        <h4>Defense</h4>
+        <a href="detect.html">Detect &amp; Defend</a>
+        <a href="detect.html#signatures">Signatures</a>
+        <a href="detect.html#ir">Incident response</a>
+      </div>
+      <div class="footer__col">
+        <h4>Compliance</h4>
+        <a href="compliance.html#owasp-llm">OWASP LLM Top 10</a>
+        <a href="compliance.html#atlas">MITRE ATLAS</a>
+        <a href="compliance.html#nist">NIST AI RMF</a>
+        <a href="compliance.html#eu-ai-act">EU AI Act</a>
+      </div>
+      <div class="footer__col">
+        <h4>About</h4>
+        <a href="about.html">About AATMF</a>
+        <a href="about.html#risk">Risk model</a>
+        <a href="about.html#cite">Citation</a>
+      </div>
+    </div>
+    <div class="footer__bar">
+      <span>© 2026 snailsploit · AATMF v3</span>
+      <span>Kai Aizen + Avraham Shemesh</span>
+    </div>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="site.js"></script>
+</body>
+</html>

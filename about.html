@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About — AATMF</title>
+<meta name="description" content="About AATMF: the framework, its risk model, standards mapping, the snailsploit research group, and ethical-use terms.">
+<link rel="icon" href="favicon.svg">
+<link rel="stylesheet" href="aatmf.css">
+</head>
+<body data-page="about">
+
+<header class="nav">
+  <div class="nav__in">
+    <a class="brand" href="index.html" aria-label="AATMF home">
+      <img class="brand__mark" src="spiral-ox.svg" width="24" height="24" alt="">
+      <span class="brand__name">AATMF</span>
+      <span class="brand__by">by snailsploit</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="index.html">Overview</a>
+      <a href="tactics.html">Tactics</a>
+      <a href="techniques.html">Techniques</a>
+      <a href="detect.html">Detect &amp; Defend</a>
+      <a href="compliance.html">Compliance</a>
+      <a href="about.html" aria-current="page">About</a>
+    </nav>
+    <div class="nav__right">
+      <span class="nav__ver"><span class="dot"></span> v3 · 2026</span>
+      <a class="btn btn--solid nav__cta" href="techniques.html">Browse techniques <span class="arr">&rarr;</span></a>
+    </div>
+    <button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+<div class="mobile" aria-hidden="true">
+  <a href="index.html">Overview</a>
+  <a href="tactics.html">Tactics</a>
+  <a href="techniques.html">Techniques</a>
+  <a href="detect.html">Detect &amp; Defend</a>
+  <a href="compliance.html">Compliance</a>
+  <a href="about.html">About</a>
+</div>
+
+<section class="about-hero">
+  <div class="wrap">
+    <span class="label rv">About <span class="ox">·</span> the framework &amp; the group</span>
+    <h1 class="display rv" data-d="1">Why it exists.</h1>
+    <p class="lede rv" data-d="2">AATMF is an attempt to give adversarial AI the thing every mature security discipline already has: a shared vocabulary. One taxonomy, one scoring model, one set of identifiers — so red teams, defenders, engineers and regulators can describe the same attack the same way.</p>
+  </div>
+</section>
+
+<!-- framework -->
+<section class="section">
+  <div class="wrap aboutgrid">
+    <div class="aboutgrid__label rv">
+      <span class="label">01 <span class="ox">·</span> the framework</span>
+      <p>What AATMF is, and what it deliberately is not.</p>
+    </div>
+    <div class="about-prose rv" data-d="1">
+      <h2>A taxonomy, not a tool.</h2>
+      <p>AATMF catalogues the adversarial-AI attack surface across <strong>15 tactics and 240 techniques</strong>, grouped into three domains — core, advanced, and infrastructure &amp; human. Each technique carries a stable identifier, a risk score, concrete attack procedures, and mappings to the frameworks already in use.</p>
+      <p>It does for AI systems what ATT&amp;CK did for enterprise intrusion: it does not tell you what tool to run. It gives everyone a common way to <strong>name, locate, and reason about</strong> an attack — which is the prerequisite for testing it, scoring it, and defending against it.</p>
+      <p>The framework is versioned. <strong>v3 (2026)</strong> reflects a landscape where jailbreaking is commodity, agents are weaponised, and retrieval and supply-chain poisoning are cheap and reliable.</p>
+    </div>
+  </div>
+</section>
+
+<!-- thesis -->
+<section class="section section--alt">
+  <div class="wrap">
+    <p class="pull__statement rv" style="max-width:24ch;">The first technology where <em>human manipulation</em> is technical exploitation.</p>
+    <div class="aboutgrid" style="margin-top:48px;">
+      <div class="aboutgrid__label rv"><span class="label">The core thesis</span></div>
+      <div class="about-prose rv" data-d="1">
+        <p>Traditional security assumes a machine that follows rules. AI systems are different: they were <strong>trained to respond like humans</strong>, which means they inherit human susceptibilities — to authority, to urgency, to framing, to misdirection.</p>
+        <p>That is why a social-engineering playbook translates so cleanly to a model. The substrate changed from a person to a network of weights; the attack did not. AATMF is built around that single observation. <strong>Same attack. Different substrate.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- risk model -->
+<section class="section" id="risk">
+  <div class="wrap aboutgrid">
+    <div class="aboutgrid__label rv">
+      <span class="label">02 <span class="ox">·</span> risk model</span>
+      <p>AATMF-R v3 — how every technique gets one comparable score.</p>
+    </div>
+    <div class="about-prose rv" data-d="1">
+      <h2>One score, six factors.</h2>
+      <p>Every technique is scored on the <strong>AATMF-R</strong> model so that a prompt-injection bug and an agent-orchestration exploit can be compared on the same axis and triaged against the same bands.</p>
+      <p class="formula" style="font-size:clamp(17px,2.4vw,24px);">Risk = <span class="ox">(L · I · E)</span> / 6 × <span class="ox">(D / 6)</span> × <span class="ox">R</span> × <span class="ox">C</span></p>
+      <p style="margin-top:18px;"><strong>L</strong>ikelihood, <strong>I</strong>mpact, <strong>E</strong>xploitability and <strong>D</strong>etectability each score 1–5; <strong>R</strong>ecoverability 1–5; and a <strong>C</strong>ost factor of 0.5–2.0 weights how cheap the attack is to mount. Scores resolve to five bands — Critical (250+), High, Medium, Low and Info — each tied to a remediation expectation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- mappings -->
+<section class="section section--alt" id="mappings">
+  <div class="wrap aboutgrid">
+    <div class="aboutgrid__label rv">
+      <span class="label">03 <span class="ox">·</span> interoperability</span>
+      <p>AATMF references the standards you already report against.</p>
+    </div>
+    <div class="about-prose rv" data-d="1">
+      <h2>It slots in. It doesn't replace.</h2>
+      <p>Every technique cross-references <strong>NIST AI RMF</strong>, <strong>MITRE ATLAS</strong> and the <strong>OWASP LLM Top 10</strong>, and risk tiers align to the <strong>EU AI Act</strong>. AATMF is meant to sit inside an existing governance program — adding the AI-specific resolution those frameworks lack, without asking anyone to abandon them.</p>
+    </div>
+  </div>
+</section>
+
+<!-- principals -->
+<section class="section" id="principals">
+  <div class="wrap">
+    <div class="intro rv">
+      <span class="label">04 <span class="ox">·</span> the group</span>
+      <h2 class="h1">snailsploit.</h2>
+      <p class="lede">A small, independent adversarial-AI research group. No vendor, no platform — the people doing the work are the people on the byline.</p>
+    </div>
+    <div class="principals">
+      <div class="principal rv">
+        <span class="principal__role">Founder · research</span>
+        <span class="principal__name">Kai Aizen</span>
+        <p>Leads the framework's taxonomy and risk model, and the adversarial research behind the v3 technique set.</p>
+      </div>
+      <div class="principal rv" data-d="1">
+        <span class="principal__role">Founder · research</span>
+        <span class="principal__name">Avraham Shemesh</span>
+        <p>Drives procedure development, detection signatures, and the mappings into NIST, ATLAS and OWASP.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ethics + cite -->
+<section class="section section--alt">
+  <div class="wrap aboutgrid" id="ethics">
+    <div class="aboutgrid__label rv">
+      <span class="label">05 <span class="ox">·</span> ethical use</span>
+    </div>
+    <div class="rv" data-d="1" style="max-width:64ch;">
+      <div class="ethics">
+        <p>AATMF is published for <strong style="color:var(--fg)">defensive research, authorised testing, and education.</strong> It describes how AI systems are attacked so that they can be tested and defended — not so they can be exploited against systems or people without consent.</p>
+        <p style="color:var(--fg-3)">Use it only against systems you own or are explicitly authorised to assess. Responsible disclosure applies.</p>
+      </div>
+      <div id="cite" style="margin-top:48px;">
+        <span class="label" style="display:block;margin-bottom:16px;">Citation</span>
+        <div class="cite">
+          Aizen, K. &amp; Shemesh, A. (2026).<br>
+          <span class="ox">AATMF</span> — Adversarial AI Threat Modeling Framework, v3.<br>
+          snailsploit. 15 tactics · 240 techniques.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- closing -->
+<section class="section">
+  <div class="wrap closing">
+    <h2 class="display closing__h rv">Start with the surface.</h2>
+    <p class="closing__sub rv" data-d="1">Same attack. Different substrate.</p>
+    <div class="btn-row rv" data-d="2">
+      <a class="btn btn--solid" href="tactics.html">Explore the tactics <span class="arr">&rarr;</span></a>
+      <a class="btn" href="techniques.html">Browse 240 techniques</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__about">
+        <a class="brand" href="index.html">
+          <img class="brand__mark" src="spiral-ox.svg" width="22" height="22" alt="">
+          <span class="brand__name" style="font-size:18px;">AATMF</span>
+        </a>
+        <p>An open framework from snailsploit — a small, independent adversarial-AI research group.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Framework</h4>
+        <a href="index.html">Overview</a>
+        <a href="tactics.html">The 15 tactics</a>
+        <a href="techniques.html">Technique browser</a>
+      </div>
+      <div class="footer__col">
+        <h4>Defense</h4>
+        <a href="detect.html">Detect &amp; Defend</a>
+        <a href="detect.html#signatures">Signatures</a>
+        <a href="detect.html#ir">Incident response</a>
+      </div>
+      <div class="footer__col">
+        <h4>Compliance</h4>
+        <a href="compliance.html#owasp-llm">OWASP LLM Top 10</a>
+        <a href="compliance.html#atlas">MITRE ATLAS</a>
+        <a href="compliance.html#eu-ai-act">EU AI Act</a>
+      </div>
+      <div class="footer__col">
+        <h4>About</h4>
+        <a href="about.html">About AATMF</a>
+        <a href="about.html#risk">Risk model</a>
+        <a href="about.html#cite">Citation</a>
+      </div>
+    </div>
+    <div class="footer__bar">
+      <span>© 2026 snailsploit · AATMF v3</span>
+      <span>Kai Aizen + Avraham Shemesh</span>
+    </div>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="site.js"></script>
+</body>
+</html>

@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detect &amp; Defend — AATMF</title>
+<meta name="description" content="Five-layer detection architecture, defensive frameworks (CaMeL, LlamaFirewall), tactic-mapped mitigations, and incident response for adversarial AI.">
+<link rel="icon" href="favicon.svg">
+<link rel="stylesheet" href="aatmf.css">
+</head>
+<body data-page="detect">
+
+<header class="nav">
+  <div class="nav__in">
+    <a class="brand" href="index.html" aria-label="AATMF home">
+      <img class="brand__mark" src="spiral-ox.svg" width="24" height="24" alt="">
+      <span class="brand__name">AATMF</span>
+      <span class="brand__by">by snailsploit</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="index.html">Overview</a>
+      <a href="tactics.html">Tactics</a>
+      <a href="techniques.html">Techniques</a>
+      <a href="detect.html" aria-current="page">Detect &amp; Defend</a>
+      <a href="compliance.html">Compliance</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="nav__right">
+      <span class="nav__ver"><span class="dot"></span> v3 · 2026</span>
+      <a class="btn btn--solid nav__cta" href="techniques.html">Browse techniques <span class="arr">&rarr;</span></a>
+    </div>
+    <button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+<div class="mobile" aria-hidden="true">
+  <a href="index.html">Overview</a>
+  <a href="tactics.html">Tactics</a>
+  <a href="techniques.html">Techniques</a>
+  <a href="detect.html">Detect &amp; Defend</a>
+  <a href="compliance.html">Compliance</a>
+  <a href="about.html">About</a>
+</div>
+
+<!-- ===== PAGE HEAD ===== -->
+<section class="page-head">
+  <div class="wrap">
+    <span class="label rv">Detection &amp; defense <span class="ox">·</span> Vol V</span>
+    <h1 class="display rv" data-d="1">Five layers.<br>No single point of failure.</h1>
+    <p class="lede rv" data-d="2">Research consensus (2025): adaptive attacks exceed <strong>85% success against any single defense</strong>. AATMF mandates layered architecture — treating the LLM as an untrusted component whose compromise is a design assumption, not an edge case. These are the layers, the patterns, and the frameworks that contain it.</p>
+  </div>
+</section>
+
+<!-- ===== DETECTION ARCHITECTURE ===== -->
+<section class="section">
+  <div class="wrap">
+    <div class="intro rv">
+      <span class="label">Architecture <span class="ox">·</span> five-layer model</span>
+      <h2 class="h1">Stack the layers.<br>Each catches what the last misses.</h2>
+      <p class="lede">Each layer covers a distinct tactic surface. An attacker bypassing Layer 1 still faces Layers 2–5. The layers are traversed sequentially from the outside in — input arrives at Layer 1, consequences propagate outward to Layers 4 and 5.</p>
+    </div>
+    <div class="layers rv" data-d="1">
+      <div class="layer">
+        <span class="layer__num">L1</span>
+        <div class="layer__body">
+          <div class="layer__name">Input Analysis</div>
+          <div class="layer__desc">Real-time classification of user inputs — injection patterns, encoding evasion, Unicode attacks, multi-language obfuscation. First and widest surface.</div>
+        </div>
+        <div class="layer__tactics">
+          <span class="ltag">T1</span>
+          <span class="ltag">T2</span>
+          <span class="ltag">T3</span>
+          <span class="ltag">T9</span>
+        </div>
+      </div>
+      <div class="layer">
+        <span class="layer__num">L2</span>
+        <div class="layer__body">
+          <div class="layer__name">Behavioral Monitoring</div>
+          <div class="layer__desc">Session-level anomaly detection — multi-turn escalation, systematic API probing, unusual query volumes, conversation state drift, agentic action sequences.</div>
+        </div>
+        <div class="layer__tactics">
+          <span class="ltag">T4</span>
+          <span class="ltag">T5</span>
+          <span class="ltag">T11</span>
+        </div>
+      </div>
+      <div class="layer">
+        <span class="layer__num">L3</span>
+        <div class="layer__body">
+          <div class="layer__name">Output Validation</div>
+          <div class="layer__desc">Schema enforcement, harmful content classification, fact-checking, watermark verification. Structured output grammar eliminates most T7/T8 vectors by architectural constraint.</div>
+        </div>
+        <div class="layer__tactics">
+          <span class="ltag">T7</span>
+          <span class="ltag">T8</span>
+        </div>
+      </div>
+      <div class="layer">
+        <span class="layer__num">L4</span>
+        <div class="layer__body">
+          <div class="layer__name">System Telemetry</div>
+          <div class="layer__desc">Infrastructure-level signals — model artifact integrity, supply chain provenance, MCP tool description auditing, API gateway anomalies, infrastructure cost spikes.</div>
+        </div>
+        <div class="layer__tactics">
+          <span class="ltag">T13</span>
+          <span class="ltag">T14</span>
+        </div>
+      </div>
+      <div class="layer">
+        <span class="layer__num">L5</span>
+        <div class="layer__body">
+          <div class="layer__name">Feedback Loop Analysis</div>
+          <div class="layer__desc">Training pipeline integrity, RLHF signal manipulation, annotation quality monitoring, preference dataset provenance, evaluation set contamination detection.</div>
+        </div>
+        <div class="layer__tactics">
+          <span class="ltag">T6</span>
+          <span class="ltag">T15</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DETECTION PATTERNS ===== -->
+<section class="section section--alt">
+  <div class="wrap">
+    <div class="intro rv">
+      <span class="label">Detection patterns <span class="ox">·</span> tactic-mapped</span>
+      <h2 class="h1">Reference implementations for the most common vectors.</h2>
+      <p class="lede">These patterns map directly to AATMF technique IDs. Adapt thresholds and regex for your deployment. Available as YARA and Sigma rules in <code style="font-family:var(--mono);font-size:inherit;color:var(--ox)">signatures/</code>.</p>
+    </div>
+
+    <div class="whatis rv" data-d="1" style="margin-top:clamp(28px,4vw,56px);">
+      <div>
+        <span class="label" style="display:block;margin-bottom:18px;">T1–T4 <span class="ox">·</span> Prompt &amp; Context Attacks</span>
+        <pre><code>class PromptInjectionDetector:
+    PATTERNS = [
+        r"ignore\s+(previous|above|all)\s+(instructions?|rules?)",
+        r"(system|admin)\s*:?\s*(override|prompt|instruction)",
+        r"you\s+are\s+now\s+(DAN|evil|unrestricted|jailbroken)",
+        r"\[\s*(SYSTEM|INST|SYS)\s*\]",
+        r"&lt;|\?(system|im_start|endoftext)\|?&gt;",
+        r"BEGIN\s+(OVERRIDE|NEW\s+INSTRUCTIONS)",
+    ]
+    ENCODING_PATTERNS = [
+        r"[bB]ase64[:\s]",
+        r"\\x[0-9a-fA-F]{2}",
+        r"[​-‏ - ﻿]",  # zero-width chars
+    ]
+    def analyze(self, text: str) -&gt; dict:
+        findings = [p for p in self.PATTERNS
+                    if re.search(p, text, re.IGNORECASE)]
+        return {
+            "detected": len(findings) &gt; 0,
+            "risk_score": min(len(findings) * 50, 300)
+        }</code></pre>
+      </div>
+      <div>
+        <span class="label" style="display:block;margin-bottom:18px;">T9–T12 <span class="ox">·</span> Multimodal &amp; Agentic</span>
+        <pre><code>class MultimodalDetector:
+    def analyze_mcp_tool(self, desc: str) -&gt; dict:
+        """Detect MCP tool poisoning (T11-AT-016)."""
+        suspicious = [
+            r"&lt;IMPORTANT&gt;",
+            r"override|ignore|bypass",
+            r"do not (tell|inform|show)",
+            r"silently|secretly|covertly",
+        ]
+        hits = [p for p in suspicious
+                if re.search(p, desc, re.I)]
+        return {
+            "poisoning_indicators": len(hits),
+            "severity": ("CRITICAL" if len(hits) &gt;= 3
+                         else "HIGH" if hits else "LOW")
+        }
+
+class SupplyChainDetector:
+    PICKLE_SIGS = [
+        b"cos\nsystem",   # os.system call
+        b"csubprocess",   # subprocess module
+        b"c__builtin__",  # builtins access
+    ]
+    def scan_model_file(self, path: str) -&gt; dict:
+        with open(path, "rb") as f:
+            header = f.read(8192)
+        findings = [s for s in self.PICKLE_SIGS if s in header]
+        return {"safe": not findings, "findings": findings}</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DEFENSIVE ARCHITECTURES ===== -->
+<section class="section">
+  <div class="wrap">
+    <div class="intro rv">
+      <span class="label">Defensive frameworks <span class="ox">·</span> 2025</span>
+      <h2 class="h1">The architectures that contain compromise.</h2>
+      <p class="lede">Both frameworks are deployable today. CaMeL provides formal security guarantees — the strongest available — at the cost of latency. LlamaFirewall is pragmatic and production-oriented.</p>
+    </div>
+    <div class="archs">
+      <div class="arch-card rv">
+        <div>
+          <div class="arch-card__badge">Google DeepMind · March 2025</div>
+          <div class="arch-card__name">CaMeL</div>
+          <div class="arch-card__src">Capability-Mediated LLM</div>
+        </div>
+        <div>
+          <div class="arch-card__statv">77%</div>
+          <div class="arch-card__statl">AgentDojo tasks solved with provable security guarantees against prompt injection</div>
+        </div>
+        <div class="arch-props">
+          <div class="arch-prop">
+            <span class="arch-prop__k">Dual-LLM</span>
+            <span class="arch-prop__v">Frontier LLM generates plans; hardened secondary LLM validates and sanitizes. Attacker must compromise both models simultaneously.</span>
+          </div>
+          <div class="arch-prop">
+            <span class="arch-prop__k">Capability tokens</span>
+            <span class="arch-prop__v">Tools require explicit capability tokens issued by the validator, not the model. Jailbreaking the LLM does not grant tool access.</span>
+          </div>
+          <div class="arch-prop">
+            <span class="arch-prop__k">Taint tracking</span>
+            <span class="arch-prop__v">Information flow control tags data by origin (user / system / tool). Tainted data physically cannot reach sensitive operations.</span>
+          </div>
+          <div class="arch-prop">
+            <span class="arch-prop__k">Trade-off</span>
+            <span class="arch-prop__v">2× inference cost, added latency. Strongest formal guarantee available for agentic systems.</span>
+          </div>
+        </div>
+      </div>
+      <div class="arch-card rv" data-d="1">
+        <div>
+          <div class="arch-card__badge">Meta · April 2025</div>
+          <div class="arch-card__name">LlamaFirewall</div>
+          <div class="arch-card__src">Open-source AI safety stack</div>
+        </div>
+        <div>
+          <div class="arch-card__statv">3×</div>
+          <div class="arch-card__statl">Components targeting distinct tactic surfaces — deployable without dual-LLM architecture</div>
+        </div>
+        <div class="arch-props">
+          <div class="arch-prop">
+            <span class="arch-prop__k">PromptGuard 2</span>
+            <span class="arch-prop__v">Real-time input classifier for injection and jailbreak patterns. Covers T1, T2, T9. Note: adaptive attacks achieve &gt;85% bypass — must be layered.</span>
+          </div>
+          <div class="arch-prop">
+            <span class="arch-prop__k">Agent Alignment</span>
+            <span class="arch-prop__v">Verifies agent actions align with original user intent, not injected instructions. Covers T11 orchestrator exploitation.</span>
+          </div>
+          <div class="arch-prop">
+            <span class="arch-prop__k">CodeShield</span>
+            <span class="arch-prop__v">Static analysis of LLM-generated code for insecure patterns. Covers T7 and T11 output manipulation vectors.</span>
+          </div>
+          <div class="arch-prop">
+            <span class="arch-prop__k">Trade-off</span>
+            <span class="arch-prop__v">Less formally rigorous than CaMeL but production-ready now. Pattern-based classifiers require ongoing updates.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MITIGATION BY TACTIC ===== -->
+<section class="section section--alt">
+  <div class="wrap">
+    <div class="intro rv">
+      <span class="label">Mitigation controls <span class="ox">·</span> by tactic</span>
+      <h2 class="h1">Concrete controls for each attack surface.</h2>
+      <p class="lede">Every control listed includes a bypass-resistance rating from the AATMF mitigation corpus. No control is rated "Absolute" — adaptive attacks are the baseline assumption.</p>
+    </div>
+    <div class="tbl-wrap rv" data-d="1">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>Tactic</th>
+            <th>Control</th>
+            <th>Implementation</th>
+            <th>Resistance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="mono">T1</span></td>
+            <td class="bold">System prompt isolation</td>
+            <td>Deliver via privileged API parameter, never concatenated text</td>
+            <td><span class="tpill--hi tpill">Medium</span></td>
+          </tr>
+          <tr>
+            <td><span class="mono">T1</span></td>
+            <td class="bold">Policy Puppetry detection</td>
+            <td>Detect XML/INI/JSON policy structures in user input — parser-aware, not regex</td>
+            <td><span class="tpill--hi tpill">Medium</span></td>
+          </tr>
+          <tr>
+            <td><span class="mono">T2</span></td>
+            <td class="bold">Unicode normalization</td>
+            <td>NFKC normalization + confusable character mapping (ICU). Eliminates homoglyph, zero-width, RTL attacks.</td>
+            <td><span class="tpill--ox tpill">High</span></td>
+          </tr>
+          <tr>
+            <td><span class="mono">T2</span></td>
+            <td class="bold">Emoji-to-text expansion</td>
+            <td>Map emoji sequences to text equivalents before classification. Eliminates emoji smuggling.</td>
+            <td><span class="tpill--ox tpill">High</span></td>
+          </tr>
+          <tr>
+            <td><span class="mono">T3</span></td>
+            <td class="bold">Reasoning chain verification</td>
+            <td>Validate CoT steps for policy violations even when final output appears safe. Catches H-CoT (Hijacked Chain-of-Thought).</td>
+            <td><span class="tpill--hi tpill">Medium</span></td>
+          </tr>
+          <tr>
+            <td><span class="mono">T4</span></td>
+            <td class="bold">Memory isolation</td>
+            <td>Persistent memory writes gated by separate validation path, not the conversational LLM</td>
+            <td><span class="tpill--ox tpill">High</span></td>
+          </tr>
+          <tr>
+            <td><span class="mono">T5</span></td>
+            <td class="bold">Differential privacy on outputs</td>
+            <td>Add calibrated noise to logits/probabilities. Provides formal privacy guarantees against model extraction.</td>
+            <td><span class="tpill--ox tpill">High</span></td>
+          </tr>
+          <tr>
+            <td><span class="mono">T6</span></td>
+            <td class="bold">Training data provenance</td>
+            <td>Cryptographic lineage tracking from source to training batch. Detects tampering at any pipeline stage.</td>
+            <td><span class="tpill--ox tpill">High</span></td>
+          </tr>
+          <tr>
+            <td><span class="mono">T7–T8</span></td>
+            <td class="bold">Structured output enforcement</td>
+            <td>JSON schema validation at the tokenizer level. Model physically cannot produce free-text harmful content.</td>
+            <td><span class="tpill--ox tpill">High</span></td>
+          </tr>
+          <tr>
+            <td><span class="mono">T9</span></td>
+            <td class="bold">Image preprocessing</td>
+            <td>Strip metadata, normalize, re-encode before passing to model. Eliminates appended-data and metadata injection.</td>
+            <td><span class="tpill--ox tpill">High</span></td>
+          </tr>
+          <tr>
+            <td><span class="mono">T11</span></td>
+            <td class="bold">Minimal authority scoping</td>
+            <td>Capability tokens scoped to the immediate task only. Blast radius of any compromise is mathematically bounded.</td>
+            <td><span class="tpill--ox tpill">High</span></td>
+          </tr>
+          <tr>
+            <td><span class="mono">T12</span></td>
+            <td class="bold">Embedding drift monitoring</td>
+            <td>Track new document embeddings against corpus distribution. Statistical anomaly signals PoisonedRAG-style injection.</td>
+            <td><span class="tpill--hi tpill">Medium</span></td>
+          </tr>
+          <tr>
+            <td><span class="mono">T13</span></td>
+            <td class="bold">SafeTensors enforcement</td>
+            <td>Require SafeTensors format for all model artifacts. Eliminates pickle-based arbitrary code execution at load time.</td>
+            <td><span class="tpill--ox tpill">High</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ALERT RESPONSE ===== -->
+<section class="section">
+  <div class="wrap">
+    <div class="risk">
+      <div class="rv">
+        <span class="label">Alert priority <span class="ox">·</span> response SLOs</span>
+        <h2 class="h2" style="margin-top:22px;">Every detection has an expected response window.</h2>
+        <p class="lede" style="margin-top:18px;">These are default SLOs from the AATMF detection engineering corpus. Calibrate to your organization's risk tolerance and the specific tactic surface triggering the alert.</p>
+        <div class="alert-bands" style="margin-top:32px;">
+          <div class="alert-band" data-r="CRITICAL">
+            <span class="alert-band__sev">Critical</span>
+            <span class="alert-band__t">15 min</span>
+            <span class="alert-band__d">Safety filter bypass confirmed. Model extraction in progress. Training pipeline anomaly. MCP tool behavior deviation.</span>
+          </div>
+          <div class="alert-band" data-r="HIGH">
+            <span class="alert-band__sev">High</span>
+            <span class="alert-band__t">1 hr</span>
+            <span class="alert-band__d">Unusual API query pattern. Cross-session memory manipulation attempt. Agent executing unauthorized tool sequence.</span>
+          </div>
+          <div class="alert-band" data-r="MEDIUM">
+            <span class="alert-band__sev">Medium</span>
+            <span class="alert-band__t">4 hrs</span>
+            <span class="alert-band__d">Repeated unsuccessful injection attempts. Encoding evasion detected and blocked. Rate limit threshold approaching.</span>
+          </div>
+          <div class="alert-band" data-r="INFO">
+            <span class="alert-band__sev">Info</span>
+            <span class="alert-band__t">Weekly</span>
+            <span class="alert-band__d">Single jailbreak attempt (unsuccessful). Standard pattern match (no anomaly). Logged for trend analysis.</span>
+          </div>
+        </div>
+      </div>
+      <div class="rv" data-d="1">
+        <span class="label">Incident response <span class="ox">·</span> AI-adapted PICERL</span>
+        <h2 class="h2" style="margin-top:22px;">AI incidents have different containment semantics.</h2>
+        <div class="factors" style="margin-top:28px;">
+          <div class="factor"><span class="factor__k" style="font-size:13px;width:auto;padding-right:4px;">P1</span><span class="factor__n">Detect &amp; triage — safety bypass, model extraction, pipeline anomaly</span></div>
+          <div class="factor"><span class="factor__k" style="font-size:13px;width:auto;padding-right:4px;">P2</span><span class="factor__n">Contain — block session, hot-swap checkpoint, quarantine RAG sources, revoke agent permissions</span></div>
+          <div class="factor"><span class="factor__k" style="font-size:13px;width:auto;padding-right:4px;">P3</span><span class="factor__n">Investigate — collect conversation logs, input classifier decisions, tool invocations, training batches</span></div>
+          <div class="factor"><span class="factor__k" style="font-size:13px;width:auto;padding-right:4px;">P4</span><span class="factor__n">Eradicate — update classifiers, patch model, rebuild RAG index from verified sources, audit provenance</span></div>
+          <div class="factor"><span class="factor__k" style="font-size:13px;width:auto;padding-right:4px;">P5</span><span class="factor__n">Recover — deploy in shadow mode, run automated red team suite, 24-hour observation window</span></div>
+          <div class="factor"><span class="factor__k" style="font-size:13px;width:auto;padding-right:4px;">P6</span><span class="factor__n">Post-incident — update AATMF documentation, share indicators, update signatures and playbooks</span></div>
+        </div>
+        <div class="note" style="margin-top:28px;">
+          <div class="note__k">GTG-1002 · November 2025</div>
+          <p>First documented state-sponsored AI-orchestrated cyberattack. A threat group used Claude Code for 80–90% of operational tasks across ~30 targets. Traditional SOC tooling missed it entirely — AI-orchestrated activities looked like normal developer workflow. Lesson: agentic AI tools require a separate monitoring plane from standard endpoints.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RED & BLUE ===== -->
+<section class="section section--alt">
+  <div class="wrap">
+    <div class="intro rv">
+      <span class="label">Operations <span class="ox">·</span> red team &amp; blue team</span>
+      <h2 class="h1">Both sides of the line use the same framework.</h2>
+    </div>
+    <div class="roles rv" data-d="1">
+      <div class="role" style="grid-column:span 1">
+        <span class="role__k">Red team · assessment levels</span>
+        <h3 class="role__h">Four engagement scopes</h3>
+        <p>Level 1 (Quick Scan, 1–2 days, T1–T3) through Level 4 (Full Spectrum, 6–8 weeks, T1–T15 including source code, infrastructure, and training pipeline). Every AATMF technique has a Red Card — a small, deterministic test scenario with expected outputs.</p>
+      </div>
+      <div class="role" style="grid-column:span 1">
+        <span class="role__k">Blue team · core principle</span>
+        <h3 class="role__h">Treat the LLM as untrusted</h3>
+        <p>The LLM is an interpreter executing untrusted code (natural language). Apply sandbox containment principles: process isolation → capability tokens, filesystem namespacing → data provenance tagging, network egress filtering → output validation, syscall allowlisting → tool allowlisting per session scope.</p>
+      </div>
+      <div class="role" style="grid-column:span 1">
+        <span class="role__k">Autonomous red teaming</span>
+        <h3 class="role__h">97% ASR, directed defensively</h3>
+        <p>The same reasoning-model capability that achieves 97% autonomous jailbreaking ASR can be directed at your own systems. Run agentic red team campaigns against your deployment before attackers do. AATMF technique IDs provide the taxonomy for structured reporting.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SIGNATURES ===== -->
+<section class="section">
+  <div class="wrap">
+    <div class="intro rv">
+      <span class="label">Detection signatures <span class="ox">·</span> YARA + Sigma</span>
+      <h2 class="h1">Ready-to-deploy rules for five tactic surfaces.</h2>
+      <p class="lede">Reference implementations in YARA (content analysis) and Sigma (log analysis). Adapt thresholds and patterns for your deployment. Full documentation in <code style="font-family:var(--mono);font-size:inherit;color:var(--ox)">docs/vol-7-appendices/appendix-b-signatures.md</code>.</p>
+    </div>
+    <div class="standards rv" data-d="1">
+      <div class="std">
+        <div class="std__name">YARA · T1</div>
+        <p class="std__full">Prompt injection patterns — instruction override strings, system role spoofing, delimiter injection.</p>
+        <div class="std__map">t01-prompt-injection.yar</div>
+      </div>
+      <div class="std">
+        <div class="std__name">YARA · T2</div>
+        <p class="std__full">Encoding evasion — Base64 payloads, Unicode homoglyphs, zero-width character sequences, RTL overrides.</p>
+        <div class="std__map">t02-encoding-evasion.yar</div>
+      </div>
+      <div class="std">
+        <div class="std__name">YARA · T9</div>
+        <p class="std__full">Multimodal injection — steganographic image payloads, adversarial perturbation signatures, appended data markers.</p>
+        <div class="std__map">t09-multimodal-injection.yar</div>
+      </div>
+      <div class="std">
+        <div class="std__name">YARA · T11</div>
+        <p class="std__full">MCP tool poisoning — hidden instruction markers, rug-pull indicators, shadow tool attack patterns.</p>
+        <div class="std__map">t11-mcp-tool-poisoning.yar</div>
+      </div>
+      <div class="std">
+        <div class="std__name">YARA · T13</div>
+        <p class="std__full">Supply chain — malicious pickle signatures, PEFT adapter indicators, checkpoint tampering markers.</p>
+        <div class="std__map">t13-supply-chain.yar</div>
+      </div>
+      <div class="std">
+        <div class="std__name">Sigma · T5</div>
+        <p class="std__full">Model extraction — systematic API probing patterns, high-volume query anomalies, boundary testing sequences.</p>
+        <div class="std__map">t05-model-extraction.yml</div>
+      </div>
+      <div class="std">
+        <div class="std__name">Sigma · T7</div>
+        <p class="std__full">Data exfiltration — covert output channel patterns, steganographic response anomalies, side-channel sequences.</p>
+        <div class="std__map">t07-data-exfiltration.yml</div>
+      </div>
+      <div class="std">
+        <div class="std__name">Sigma · T11</div>
+        <p class="std__full">Agent anomaly — unauthorized tool invocations, lateral movement sequences, autonomous replication signals.</p>
+        <div class="std__map">t11-agent-anomaly.yml</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CLOSING ===== -->
+<section class="section section--alt">
+  <div class="wrap closing">
+    <h2 class="display closing__h rv">Know the attack<br>before you build the defense.</h2>
+    <p class="closing__sub rv" data-d="1">Same attack. Different substrate.</p>
+    <div class="btn-row rv" data-d="2">
+      <a class="btn btn--solid" href="techniques.html">Browse 240 techniques <span class="arr">&rarr;</span></a>
+      <a class="btn" href="compliance.html">Standards &amp; compliance</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__about">
+        <a class="brand" href="index.html">
+          <img class="brand__mark" src="spiral-ox.svg" width="22" height="22" alt="">
+          <span class="brand__name" style="font-size:18px;">AATMF</span>
+        </a>
+        <p>An open framework from snailsploit — a small, independent adversarial-AI research group.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Framework</h4>
+        <a href="index.html">Overview</a>
+        <a href="tactics.html">The 15 tactics</a>
+        <a href="techniques.html">Technique browser</a>
+      </div>
+      <div class="footer__col">
+        <h4>Defend</h4>
+        <a href="detect.html">Detect &amp; Defend</a>
+        <a href="compliance.html">Compliance</a>
+        <a href="about.html#cite">Citation</a>
+      </div>
+      <div class="footer__col">
+        <h4>Group</h4>
+        <a href="about.html">About</a>
+        <a href="about.html#principals">Principals</a>
+        <a href="about.html#ethics">Ethical use</a>
+      </div>
+    </div>
+    <div class="footer__bar">
+      <span>© 2026 snailsploit · AATMF v3</span>
+      <span>Kai Aizen + Avraham Shemesh</span>
+    </div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>

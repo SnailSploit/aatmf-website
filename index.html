@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AATMF — Adversarial AI Threat Modeling Framework</title>
+<meta name="description" content="AATMF is a structured threat-modeling framework for adversarial AI: 15 tactics, 240 techniques, 2,152+ attack procedures. A common language for testing, scoring and defending AI systems.">
+<link rel="icon" href="favicon.svg">
+<link rel="stylesheet" href="aatmf.css">
+</head>
+<body data-page="overview">
+
+<!-- ===== NAV ===== -->
+<header class="nav">
+  <div class="nav__in">
+    <a class="brand" href="index.html" aria-label="AATMF home">
+      <img class="brand__mark" src="spiral-ox.svg" width="24" height="24" alt="">
+      <span class="brand__name">AATMF</span>
+      <span class="brand__by">by snailsploit</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="index.html" aria-current="page">Overview</a>
+      <a href="tactics.html">Tactics</a>
+      <a href="techniques.html">Techniques</a>
+      <a href="detect.html">Detect &amp; Defend</a>
+      <a href="compliance.html">Compliance</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="nav__right">
+      <span class="nav__ver"><span class="dot"></span> v3 · 2026</span>
+      <a class="btn btn--solid nav__cta" href="techniques.html">Browse techniques <span class="arr">&rarr;</span></a>
+    </div>
+    <button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+<div class="mobile" aria-hidden="true">
+  <a href="index.html">Overview</a>
+  <a href="tactics.html">Tactics</a>
+  <a href="techniques.html">Techniques</a>
+  <a href="detect.html">Detect &amp; Defend</a>
+  <a href="compliance.html">Compliance</a>
+  <a href="about.html">About</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <img class="hero__mark" src="spiral-fg.svg" alt="">
+  <div class="wrap hero__in">
+    <div class="hero__eyebrow">
+      <span class="label">v3 · 2026 <span class="ox">·</span> open framework</span>
+    </div>
+    <h1 class="hero__name">AATMF</h1>
+    <p class="hero__expand">Adversarial AI Threat&nbsp;Modeling Framework</p>
+    <p class="lede hero__lede rv" data-d="2">
+      A structured, open threat model for adversarial AI — the attack surface that
+      prompt injection, data poisoning, model extraction and agentic exploitation opened, and
+      that conventional security frameworks were never built to describe. One common language to
+      test it, score it, and defend it.
+    </p>
+    <div class="btn-row rv" data-d="3">
+      <a class="btn btn--solid" href="tactics.html">Explore the framework <span class="arr">&rarr;</span></a>
+      <a class="btn" href="techniques.html">Browse 240 techniques</a>
+    </div>
+    <div class="hero__metrics rv" data-d="3">
+      <div class="metric"><span class="metric__n tnum"><span data-count="15">0</span></span><span class="metric__l">Tactics</span></div>
+      <div class="metric"><span class="metric__n tnum"><span data-count="240">0</span><span class="plus">+</span></span><span class="metric__l">Techniques</span></div>
+      <div class="metric"><span class="metric__n tnum"><span data-count="2152">0</span><span class="plus">+</span></span><span class="metric__l">Attack procedures</span></div>
+      <div class="metric"><span class="metric__n tnum"><span data-count="4980">0</span><span class="plus">+</span></span><span class="metric__l">Test prompts</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHAT IS — editorial pull ===== -->
+<section class="section section--alt">
+  <div class="wrap">
+    <div class="whatis">
+      <div class="whatis__main">
+        <p class="pull__statement rv">
+          AI systems can be <em>socially engineered</em> — because they were trained to respond like humans.
+        </p>
+      </div>
+      <div class="whatis__aside prose rv" data-d="1">
+        <p>It is the first technology where <strong>human manipulation translates directly into technical exploitation.</strong> The same playbook that works on a person — authority, urgency, framing, misdirection — works on the model trained to answer like one.</p>
+        <p>AATMF catalogues that surface the way ATT&amp;CK catalogues enterprise intrusion: a complete taxonomy, stable identifiers, and concrete, reproducible procedures for finding, testing and defending against AI-specific attacks.</p>
+        <div class="note">
+          <div class="note__k">The shorthand</div>
+          <p>Same attack. Different substrate.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== THE 15 TACTICS ===== -->
+<section class="section">
+  <div class="wrap">
+    <div class="intro rv">
+      <span class="label">The framework <span class="ox">·</span> 15 tactics, 3 domains</span>
+      <h2 class="h1">Every attack resolves to one place on the surface.</h2>
+      <p class="lede">From prompt-level manipulation to infrastructure and the humans in the loop — fifteen tactics span the full adversarial lifecycle. Each links to its techniques, procedures and detections.</p>
+    </div>
+    <div id="domains" class="domains"></div>
+  </div>
+</section>
+
+<!-- ===== RISK MODEL ===== -->
+<section class="section section--alt">
+  <div class="wrap">
+    <div class="risk">
+      <div class="rv">
+        <span class="label">Risk scoring <span class="ox">·</span> AATMF-R v3</span>
+        <h2 class="h2" style="margin-top:22px;">One score makes every attack comparable.</h2>
+        <p class="formula">Risk = <span class="ox">(L · I · E)</span> / 6 × <span class="ox">(D / 6)</span> × <span class="ox">R</span> × <span class="ox">C</span></p>
+        <div class="factors">
+          <div class="factor"><span class="factor__k">L</span><span class="factor__n">Likelihood</span><span class="factor__r">1–5</span></div>
+          <div class="factor"><span class="factor__k">I</span><span class="factor__n">Impact</span><span class="factor__r">1–5</span></div>
+          <div class="factor"><span class="factor__k">E</span><span class="factor__n">Exploitability</span><span class="factor__r">1–5</span></div>
+          <div class="factor"><span class="factor__k">D</span><span class="factor__n">Detectability</span><span class="factor__r">1–5</span></div>
+          <div class="factor"><span class="factor__k">R</span><span class="factor__n">Recoverability</span><span class="factor__r">1–5</span></div>
+          <div class="factor"><span class="factor__k">C</span><span class="factor__n">Cost factor</span><span class="factor__r">0.5–2.0</span></div>
+        </div>
+      </div>
+      <div class="rv" data-d="1">
+        <span class="label">Rating bands</span>
+        <div class="bands" style="margin-top:20px;">
+          <div class="band" data-r="CRITICAL"><div class="band__name"><span class="sev"><i></i><i></i><i></i><i></i><i></i></span>Critical</div><span class="band__r">250 +</span><span class="band__a">Immediate remediation — halt or isolate.</span></div>
+          <div class="band" data-r="HIGH"><div class="band__name"><span class="sev"><i></i><i></i><i></i><i></i><i></i></span>High</div><span class="band__r">200–249</span><span class="band__a">Remediate this sprint.</span></div>
+          <div class="band" data-r="MEDIUM"><div class="band__name"><span class="sev"><i></i><i></i><i></i><i></i><i></i></span>Medium</div><span class="band__r">150–199</span><span class="band__a">Scheduled remediation.</span></div>
+          <div class="band" data-r="LOW"><div class="band__name"><span class="sev"><i></i><i></i><i></i><i></i><i></i></span>Low</div><span class="band__r">100–149</span><span class="band__a">Accept or monitor.</span></div>
+          <div class="band" data-r="INFO"><div class="band__name"><span class="sev"><i></i><i></i><i></i><i></i><i></i></span>Info</div><span class="band__r">0–99</span><span class="band__a">Documented, no action required.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STANDARDS MAPPING ===== -->
+<section class="section">
+  <div class="wrap">
+    <div class="intro rv">
+      <span class="label">Interoperable <span class="ox">·</span> not another silo</span>
+      <h2 class="h1">Mapped to the standards you already report against.</h2>
+      <p class="lede">Every technique cross-references the frameworks your program and your regulators already use — so AATMF slots into existing governance instead of replacing it.</p>
+    </div>
+    <div class="standards">
+      <div class="std rv"><div class="std__name">NIST AI RMF</div><p class="std__full">AI Risk Management Framework — Govern, Map, Measure, Manage.</p><div class="std__map">Mapped per technique</div></div>
+      <div class="std rv" data-d="1"><div class="std__name">MITRE ATLAS</div><p class="std__full">Adversarial Threat Landscape for AI Systems.</p><div class="std__map">Mapped per technique</div></div>
+      <div class="std rv" data-d="2"><div class="std__name">OWASP LLM Top 10</div><p class="std__full">The canonical LLM application risk list.</p><div class="std__map">Mapped per technique</div></div>
+      <div class="std rv" data-d="3"><div class="std__name">EU AI Act</div><p class="std__full">Risk tiers and obligations for high-risk AI.</p><div class="std__map">Risk-tier aligned</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHO IT'S FOR ===== -->
+<section class="section section--alt">
+  <div class="wrap">
+    <div class="intro rv">
+      <span class="label">Audience</span>
+      <h2 class="h1">One taxonomy, both sides of the line.</h2>
+    </div>
+    <div class="roles">
+      <div class="role rv"><span class="role__k">Red team</span><h3 class="role__h">Offensive testing</h3><p>Plan and run structured adversarial-AI assessments with reproducible procedure IDs.</p></div>
+      <div class="role rv" data-d="1"><span class="role__k">Blue team · SOC</span><h3 class="role__h">Detect &amp; respond</h3><p>Build detections, harden defenses, and respond to AI-specific incidents.</p></div>
+      <div class="role rv" data-d="2"><span class="role__k">AI / ML engineering</span><h3 class="role__h">Ship it hardened</h3><p>Threat-model models, RAG and agents before they reach production.</p></div>
+      <div class="role rv"><span class="role__k">Research</span><h3 class="role__h">Shared language</h3><p>Publish against a common taxonomy with collision-free identifiers.</p></div>
+      <div class="role rv" data-d="1"><span class="role__k">GRC · Compliance</span><h3 class="role__h">Govern the risk</h3><p>Map AI risk to NIST AI RMF, the EU AI Act and OWASP.</p></div>
+      <div class="role rv" data-d="2"><span class="role__k">CISO · Leadership</span><h3 class="role__h">Quantify &amp; report</h3><p>Prioritise and communicate AI risk to the board with one score.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CLOSING ===== -->
+<section class="section">
+  <div class="wrap closing">
+    <h2 class="display closing__h rv">Read the trail<br>before you follow it.</h2>
+    <p class="closing__sub rv" data-d="1">Same attack. Different substrate.</p>
+    <div class="btn-row rv" data-d="2">
+      <a class="btn btn--solid" href="tactics.html">Explore the tactics <span class="arr">&rarr;</span></a>
+      <a class="btn" href="techniques.html">Search 240 techniques</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__about">
+        <a class="brand" href="index.html">
+          <img class="brand__mark" src="spiral-ox.svg" width="22" height="22" alt="">
+          <span class="brand__name" style="font-size:18px;">AATMF</span>
+        </a>
+        <p>An open framework from snailsploit — a small, independent adversarial-AI research group. The people doing the work are the people on the byline.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Framework</h4>
+        <a href="index.html">Overview</a>
+        <a href="tactics.html">The 15 tactics</a>
+        <a href="techniques.html">Technique browser</a>
+      </div>
+      <div class="footer__col">
+        <h4>Defense</h4>
+        <a href="detect.html">Detect &amp; Defend</a>
+        <a href="detect.html#signatures">Signatures</a>
+        <a href="detect.html#ir">Incident response</a>
+      </div>
+      <div class="footer__col">
+        <h4>Compliance</h4>
+        <a href="compliance.html#owasp-llm">OWASP LLM Top 10</a>
+        <a href="compliance.html#atlas">MITRE ATLAS</a>
+        <a href="compliance.html#eu-ai-act">EU AI Act</a>
+      </div>
+      <div class="footer__col">
+        <h4>About</h4>
+        <a href="about.html">About AATMF</a>
+        <a href="about.html#risk">Risk model</a>
+        <a href="about.html#cite">Citation</a>
+      </div>
+    </div>
+    <div class="footer__bar">
+      <span>© 2026 snailsploit · AATMF v3</span>
+      <span>Kai Aizen + Avraham Shemesh</span>
+    </div>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="render-home.js"></script>
+<script src="site.js"></script>
+
+<div id="tweaks-root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="tweaks-app.jsx"></script>
+</body>
+</html>
